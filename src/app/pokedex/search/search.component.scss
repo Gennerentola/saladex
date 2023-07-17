@@ -1,0 +1,58 @@
+mat-form-field {
+  width: 100%;
+  @media screen and (min-width: 992px) {
+    width: 50%;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+  font-size: 2rem;
+}
+
+::ng-deep.cdk-overlay-pane {
+  position: absolute;
+  background-color: #fff;
+}
+
+::ng-deep.mdc-notched-outline {
+  color: #fff !important;
+}
+
+::ng-deep .mat-option:hover {
+  background-color: #9b9b9b;
+}
+
+button {
+  z-index: 900;
+}
+
+input {
+  color: #fff;
+}
+
+::ng-deep.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+::ng-deep.mat-mdc-option {
+  &:hover {
+    background-color: #d7d7d7;
+  }
+  &:focus {
+    background-color: #d7d7d7;
+  }
+}
+
+:host::ng-deep.mat-mdc-form-field-flex {
+  display: flex;
+  align-items: center;
+}

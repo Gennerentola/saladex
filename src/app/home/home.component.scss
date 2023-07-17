@@ -1,0 +1,45 @@
+h1 {
+  font-weight: 600;
+  color: #00a0b6;
+  span {
+    color: #ba004f;
+  }
+  text-shadow: #000 1px 0 10px;;
+}
+
+.btn-primary {
+  border: #00A0B6;
+  border-radius: #00A0B6;
+  background-color: #00A0B6;
+  &:hover {
+    border: #0199ad;
+    border-radius: #0199ad;
+    background-color: #0199ad;
+  }
+  &:active{
+    border: #BA004F;
+    border-radius: #BA004F;
+    background-color: #BA004F;
+  }
+}
+
+.btn-secondary {
+  border: #BA004F;
+  border-radius: #BA004F;
+  background-color: #BA004F;
+  &:hover{
+    border: #990140;
+    border-radius: #990140;
+    background-color: #990140;
+  }
+  &:active{
+    border: #00A0B6;
+    border-radius: #00A0B6;
+    background-color: #00A0B6;
+  }
+}
+
+.card {
+  height: 250px;
+  background-color: rgba(255, 255, 255, 0.75);
+}

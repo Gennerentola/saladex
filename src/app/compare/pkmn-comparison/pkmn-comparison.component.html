@@ -1,0 +1,163 @@
+<main>
+  <h2 class="text-center text-light py-3 display-2 px-2">Scegli due pokemon e confronta le loro statistche</h2>
+  <div class="container d-flex flex-column justify-content-center align-items-center pb-5">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3">
+      <form [formGroup]="firstPkmnForm" class="d-flex justify-content-center">
+        <mat-form-field class="mx-3">
+          <mat-label>Cerca</mat-label>
+          <input matInput formControlName="nome" type="text" [matAutocomplete]="auto"
+            (keyup)="liveSearchFirstPkmn(firstPkmnForm.value.nome)">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" panelClass="custom-autocomplete-panel">
+          <mat-option *ngFor="let name of nameList" [value]="name">
+            {{name}}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
+      <button class="btn btn-light rounded-circle d-flex align-items-center justify-content-center mx-5 my-3" type="button"
+        (click)="getCompare(firstPkmnForm.value.nome, secondPkmnForm.value.nome)"><img
+          src="../../../assets/img/versus.png" class="versus" alt="versus"></button>
+      <form [formGroup]="secondPkmnForm" class="d-flex justify-content-center">
+        <mat-form-field class="mx-3">
+          <mat-label>Cerca</mat-label>
+          <input matInput formControlName="nome" type="text" [matAutocomplete]="auto"
+            (keyup)="liveSearchSecondPkmn(secondPkmnForm.value.nome)">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" panelClass="custom-autocomplete-panel">
+          <mat-option *ngFor="let name of nameList" [value]="name">
+            {{name}}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
+    </div>
+    <div class="card text-center" *ngIf="firstPokemon && secondPokemon">
+      <div class="card-header">
+        <div class="d-flex flex-column flex-md-row justify-content-around align-items-center">
+          <div class="d-flex align-items-center align-self-md-end pkmnHeader firstPkmnLegend" (click)="goToDexCard(firstPokemon.name)">
+            <img class="pkmnSprite" [src]="firstPokemon.sprite" [alt]="firstPokemon.name">
+            <div>
+              <h3 class="ps-2">{{firstPokemon.name}}</h3>
+              <p>
+                <span>Tipo:</span><br>
+                <span class="text-uppercase px-1 pb-1" [ngClass]="{
+                  'grass': firstPokemon.types[0] == 'grass',
+                  'fire': firstPokemon.types[0] == 'fire',
+                  'water': firstPokemon.types[0] == 'water',
+                  'normal': firstPokemon.types[0] == 'normal',
+                  'bug': firstPokemon.types[0] == 'bug',
+                  'poison': firstPokemon.types[0] == 'poison',
+                  'electric': firstPokemon.types[0] == 'electric',
+                  'ground': firstPokemon.types[0] == 'ground',
+                  'fairy': firstPokemon.types[0] == 'fairy',
+                  'fighting': firstPokemon.types[0] == 'fighting',
+                  'psychic': firstPokemon.types[0] == 'psychic',
+                  'rock': firstPokemon.types[0] == 'rock',
+                  'ghost': firstPokemon.types[0] == 'ghost',
+                  'ice': firstPokemon.types[0] == 'ice',
+                  'dragon': firstPokemon.types[0] == 'dragon',
+                  'flying': firstPokemon.types[0] == 'flying',
+                  'steel': firstPokemon.types[0] == 'steel',
+                  'dark': firstPokemon.types[0] == 'dark',
+                  'rounded-start' : firstPokemon.types[1],
+                  'rounded' : !firstPokemon.types[1]
+                }">{{firstPokemon.types[0]}}</span>
+                <span class="text-uppercase px-1 pb-1 rounded-end" *ngIf="firstPokemon.types[1]" [ngClass]="{
+                  'grass': firstPokemon.types[1] == 'grass',
+                  'fire': firstPokemon.types[1] == 'fire',
+                  'water': firstPokemon.types[1] == 'water',
+                  'normal': firstPokemon.types[1] == 'normal',
+                  'bug': firstPokemon.types[1] == 'bug',
+                  'poison': firstPokemon.types[1] == 'poison',
+                  'electric': firstPokemon.types[1] == 'electric',
+                  'ground': firstPokemon.types[1] == 'ground',
+                  'fairy': firstPokemon.types[1] == 'fairy',
+                  'fighting': firstPokemon.types[1] == 'fighting',
+                  'psychic': firstPokemon.types[1] == 'psychic',
+                  'rock': firstPokemon.types[1] == 'rock',
+                  'ghost': firstPokemon.types[1] == 'ghost',
+                  'ice': firstPokemon.types[1] == 'ice',
+                  'dragon': firstPokemon.types[1] == 'dragon',
+                  'flying': firstPokemon.types[1] == 'flying',
+                  'steel': firstPokemon.types[1] == 'steel',
+                  'dark': firstPokemon.types[1] == 'dark'
+                }">{{firstPokemon.types[1]}}</span>
+              </p>
+            </div>
+          </div>
+          <img src="../../../assets/img/versus.png" class="versus my-3" alt="versus">
+          <div class="d-flex align-items-center justify-content-end align-self-md-end pkmnHeader secondPkmnLegend" (click)="goToDexCard(secondPokemon.name)">
+            <div>
+              <h3 class="pe-2">{{secondPokemon.name}}</h3>
+              <p>
+                <span>Tipo:</span><br>
+                <span class="text-uppercase px-1 pb-1" [ngClass]="{
+                  'grass': secondPokemon.types[0] == 'grass',
+                  'fire': secondPokemon.types[0] == 'fire',
+                  'water': secondPokemon.types[0] == 'water',
+                  'normal': secondPokemon.types[0] == 'normal',
+                  'bug': secondPokemon.types[0] == 'bug',
+                  'poison': secondPokemon.types[0] == 'poison',
+                  'electric': secondPokemon.types[0] == 'electric',
+                  'ground': secondPokemon.types[0] == 'ground',
+                  'fairy': secondPokemon.types[0] == 'fairy',
+                  'fighting': secondPokemon.types[0] == 'fighting',
+                  'psychic': secondPokemon.types[0] == 'psychic',
+                  'rock': secondPokemon.types[0] == 'rock',
+                  'ghost': secondPokemon.types[0] == 'ghost',
+                  'ice': secondPokemon.types[0] == 'ice',
+                  'dragon': secondPokemon.types[0] == 'dragon',
+                  'flying': secondPokemon.types[0] == 'flying',
+                  'steel': secondPokemon.types[0] == 'steel',
+                  'dark': secondPokemon.types[0] == 'dark',
+                  'rounded-start' : secondPokemon.types[1],
+                  'rounded' : !secondPokemon.types[1]
+                }">{{secondPokemon.types[0]}}</span>
+                <span class="text-uppercase px-1 pb-1 rounded-end" *ngIf="secondPokemon.types[1]" [ngClass]="{
+                  'grass': secondPokemon.types[1] == 'grass',
+                  'fire': secondPokemon.types[1] == 'fire',
+                  'water': secondPokemon.types[1] == 'water',
+                  'normal': secondPokemon.types[1] == 'normal',
+                  'bug': secondPokemon.types[1] == 'bug',
+                  'poison': secondPokemon.types[1] == 'poison',
+                  'electric': secondPokemon.types[1] == 'electric',
+                  'ground': secondPokemon.types[1] == 'ground',
+                  'fairy': secondPokemon.types[1] == 'fairy',
+                  'fighting': secondPokemon.types[1] == 'fighting',
+                  'psychic': secondPokemon.types[1] == 'psychic',
+                  'rock': secondPokemon.types[1] == 'rock',
+                  'ghost': secondPokemon.types[1] == 'ghost',
+                  'ice': secondPokemon.types[1] == 'ice',
+                  'dragon': secondPokemon.types[1] == 'dragon',
+                  'flying': secondPokemon.types[1] == 'flying',
+                  'steel': secondPokemon.types[1] == 'steel',
+                  'dark': secondPokemon.types[1] == 'dark'
+                }">{{secondPokemon.types[1]}}</span>
+              </p>
+            </div>
+            <img class="pkmnSprite" [src]="secondPokemon.sprite" [alt]="secondPokemon.name">
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mx-auto comparisonChart">
+          <app-comparison-chart [firstPokemon]="firstPokemon" [secondPokemon]="secondPokemon"></app-comparison-chart>
+        </div>
+        <hr class="container">
+        <div class="container">
+          <p class="card-text mb-0" *ngIf="isFirstPkmnTypeStronger && !isSecondPkmnTypeStronger">Dal confronto dei tipi risulta che {{firstPokemon.name}} è avvantaggiato.</p>
+          <p class="card-text mb-0" *ngIf="!isFirstPkmnTypeStronger && isSecondPkmnTypeStronger">Dal confronto dei tipi risulta che {{secondPokemon.name}} è avvantaggiato.</p>
+          <p class="card-text mb-0" *ngIf="isFirstPkmnImmune">{{firstPokemon.name}} risulta immune alle mosse STAB di <span *ngIf="secondPokemon.types[1] != undefined">uno dei tipi di</span> {{secondPokemon.name}}.</p>
+          <p class="card-text mb-0" *ngIf="isSecondPkmnImmune">{{secondPokemon.name}} risulta immune alle mosse STAB di <span *ngIf="firstPokemon.types[1] != undefined">uno dei tipi di</span> {{firstPokemon.name}}.</p>
+          <p class="card-text mb-0" *ngIf="isFirstPkmnTypeStronger && isSecondPkmnTypeStronger">Dal confronto dei tipi risulta che i due pokemon hanno entrambi STAB superefficaci l'uno contro l'altro, perciò nessuno dei due ha un chiaro vantaggio nei confronti dell'altro.</p>
+          <p class="card-text mb-0" *ngIf="!isFirstPkmnTypeStronger && !isSecondPkmnTypeStronger && !isFirstPkmnImmune && !isSecondPkmnImmune">Dal confronto dei tipi risulta che nessuno dei due pokemon ha STAB superefficaci contro l'altro o immunità alle STAB avversarie, perciò nessuno dei due ha un chiaro vantaggio nei confronti dell'altro.</p>
+          <p class="card-text" *ngIf="firstPokemon.getTotalStats() > secondPokemon.getTotalStats()">La somma delle statistiche di base di {{firstPokemon.name}} è più alta di quelle di {{secondPokemon.name}}.</p>
+          <p class="card-text" *ngIf="firstPokemon.getTotalStats() < secondPokemon.getTotalStats()">La somma delle statistiche di base di {{secondPokemon.name}} è più alta di quelle di {{firstPokemon.name}}.</p>
+          <p class="card-text" *ngIf="firstPokemon.getTotalStats() === secondPokemon.getTotalStats()">La somma delle statistiche di base dei due pokemon è uguale.</p>
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        Tutti i diritti sono riservati ai legittimi proprietari.
+      </div>
+    </div>
+  </div>
+</main>

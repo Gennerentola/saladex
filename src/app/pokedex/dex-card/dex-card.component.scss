@@ -1,0 +1,151 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    width: 90vw;
+  }
+}
+
+.card-header {
+  box-sizing: border-box;
+}
+
+.loading {
+  cursor: wait;
+}
+
+h5 {
+  font-weight: 500;
+}
+
+strong {
+  font-weight: 500;
+}
+
+img {
+  width: 250px;
+  height: 250px;
+}
+
+.formattingText {
+  span {
+    display: inline-block;
+  }
+}
+
+::ng-deep.mdc-button__label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::ng-deep.mat-expansion-panel-body {
+  padding: 0 24px !important;
+}
+
+.grass {
+  color: #fff;
+  background: linear-gradient(#66B660, #9de998);
+}
+
+.fire {
+  color: #fff;
+  background: linear-gradient(#fd7e14, #ffa357);
+}
+
+.water {
+  color: #fff;
+  background: linear-gradient(#4791ff, #87b7ff);
+}
+
+.normal {
+  color: #fff;
+  background: linear-gradient(#adb5bd, #d7e1ec);
+}
+
+.bug {
+  color: #fff;
+  background: linear-gradient(#8cb735, #c9ee7d);
+}
+
+.poison {
+  color: #fff;
+  background: linear-gradient(#A96AC8, #d3a1eb);
+}
+
+.electric {
+  color: #fff;
+  background: linear-gradient(#ffd34d, #ffe38e);
+}
+
+.ground {
+  color: #fff;
+  background: linear-gradient(#D87844, #e9a580);
+}
+
+.fairy {
+  color: #fff;
+  background: linear-gradient(#ff9fcf, #fac1dd);
+}
+
+.fighting {
+  color: #fff;
+  background: linear-gradient(#c75a00, #e1a06b);
+}
+
+.psychic {
+  color: #fff;
+  background: linear-gradient(#d63384, #ee85b9);
+}
+
+.rock {
+  color: #fff;
+  background: linear-gradient(#D1C6A3, #ffefc0);
+}
+
+.ghost {
+  color: #fff;
+  background: linear-gradient(#5569AD, #8e9fd8);
+}
+
+.ice {
+  color: #fff;
+  background: linear-gradient(#73CEBF, #a3d1ca);
+}
+
+.dragon {
+  color: #fff;
+  background: linear-gradient(#0F6FC3, #589cd8);
+}
+
+.flying {
+  color: #fff;
+  background: linear-gradient(#8EA8DE, #c5d8ff);
+}
+
+.steel {
+  color: #fff;
+  background: linear-gradient(#5A8DA1, #8fbacb);
+}
+
+.dark {
+  color: #fff;
+  background: linear-gradient(#5A5365, #978ca9);
+}
+
+.btn-outline-primary {
+  color: #fff;
+  border-color: #fff;
+  background-color: #00A0B6;
+  &:hover {
+    color: #00A0B6;
+    border-color: #00A0B6;
+    background-color: #BA004F;
+  }
+  &:active {
+    color: #00A0B6;
+    border-color: #00A0B6;
+    background-color: #BA004F;
+  }
+}

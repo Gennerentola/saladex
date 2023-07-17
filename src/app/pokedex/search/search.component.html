@@ -1,0 +1,23 @@
+<main class="pb-5">
+  <h2 class="text-light text-center py-3 display-2 px-2">Scrivi il nome del pokemon che vuoi cercare</h2>
+  <form [formGroup]="searchbarForm" class="container my-5 d-flex justify-content-center"
+    (submit)="search(this.searchbarForm.value.nome.toLowerCase())">
+    <mat-form-field class="mx-3">
+      <mat-label>Cerca</mat-label>
+      <input matInput formControlName="nome" type="text"
+        [matAutocomplete]="auto"
+        (keyup)="liveSearch(searchbarForm.value.nome)">
+      <button matSuffix type="submit" mat-flat-button><span class="material-symbols-outlined text-light">
+          search
+        </span></button>
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete" panelClass="custom-autocomplete-panel">
+      <mat-option *ngFor="let name of nameList" [value]="name">
+        {{name}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  <small class="text-center text-decoration-underline d-block text-white pb-5 px-2">Le descrizioni in italiano non sono
+    disponibili per i pokemon della nona generazione.</small>
+  <app-dex-card [pokemon]="pkmnFound"></app-dex-card>
+</main>

@@ -1,0 +1,277 @@
+<article *ngIf="pokemon != undefined" [ngClass]="{'loading' : loading == true}">
+  <div class="card text-center mx-auto">
+    <div class="card-header d-flex align-items-center justify-content-center justify-content-md-between">
+      <div [ngClass]="{'invisible' : (pokemon.dexNumber - 1) == 0}" class="d-none d-md-inline-block" (click)="nextSearch(pokemon.dexNumber - 1)"><button mat-flat-button type="button" class="fst-italic"><span
+            class="material-symbols-outlined">
+            arrow_back
+          </span>Pokemon #{{pokemon.dexNumber - 1}}</button></div>
+      <div>
+        <h3 class="card-title display-4">{{pokemon.name}}</h3>
+        <em>#{{pokemon.dexNumber}}</em>
+      </div>
+      <div class="d-none d-md-inline-block" (click)="nextSearch(pokemon.dexNumber + 1)"><button mat-flat-button type="button" class="fst-italic">Pokemon
+          #{{pokemon.dexNumber + 1}}<span class="material-symbols-outlined">
+            arrow_forward
+          </span></button></div>
+    </div>
+    <div class="card-body container">
+      <div class="d-flex flex-column-reverse flex-md-row justify-content-md-evenly align-items-center">
+        <app-stats-chart [stats]="pokemon.stats"></app-stats-chart>
+        <div>
+          <h5 class="fst-italic">{{pokemon.genus}}</h5>
+          <img [src]="pokemon.sprite">
+          <p class="pt-2">
+            <strong>Tipo:</strong><br>
+            <span class="text-uppercase px-1 pb-1" [ngClass]="{
+              'grass': pokemon.types[0] == 'grass',
+              'fire': pokemon.types[0] == 'fire',
+              'water': pokemon.types[0] == 'water',
+              'normal': pokemon.types[0] == 'normal',
+              'bug': pokemon.types[0] == 'bug',
+              'poison': pokemon.types[0] == 'poison',
+              'electric': pokemon.types[0] == 'electric',
+              'ground': pokemon.types[0] == 'ground',
+              'fairy': pokemon.types[0] == 'fairy',
+              'fighting': pokemon.types[0] == 'fighting',
+              'psychic': pokemon.types[0] == 'psychic',
+              'rock': pokemon.types[0] == 'rock',
+              'ghost': pokemon.types[0] == 'ghost',
+              'ice': pokemon.types[0] == 'ice',
+              'dragon': pokemon.types[0] == 'dragon',
+              'flying': pokemon.types[0] == 'flying',
+              'steel': pokemon.types[0] == 'steel',
+              'dark': pokemon.types[0] == 'dark',
+              'rounded-start' : pokemon.types[1],
+              'rounded' : !pokemon.types[1]
+            }">{{pokemon.types[0]}}</span>
+            <span class="text-uppercase px-1 pb-1 rounded-end" *ngIf="pokemon.types[1]" [ngClass]="{
+              'grass': pokemon.types[1] == 'grass',
+              'fire': pokemon.types[1] == 'fire',
+              'water': pokemon.types[1] == 'water',
+              'normal': pokemon.types[1] == 'normal',
+              'bug': pokemon.types[1] == 'bug',
+              'poison': pokemon.types[1] == 'poison',
+              'electric': pokemon.types[1] == 'electric',
+              'ground': pokemon.types[1] == 'ground',
+              'fairy': pokemon.types[1] == 'fairy',
+              'fighting': pokemon.types[1] == 'fighting',
+              'psychic': pokemon.types[1] == 'psychic',
+              'rock': pokemon.types[1] == 'rock',
+              'ghost': pokemon.types[1] == 'ghost',
+              'ice': pokemon.types[1] == 'ice',
+              'dragon': pokemon.types[1] == 'dragon',
+              'flying': pokemon.types[1] == 'flying',
+              'steel': pokemon.types[1] == 'steel',
+              'dark': pokemon.types[1] == 'dark'
+            }">{{pokemon.types[1]}}</span>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-6 pb-3">
+          <div class="row">
+            <div class="col-12 col-lg-6 pb-3">
+              <h5 class="fst-italic">Descrizione</h5>
+              <p class="card-text pt-3">{{pokemon.description}}</p>
+            </div>
+            <div class="col-12 col-lg-6 pb-3">
+              <h5 class="fst-italic">Abilità</h5>
+              <mat-accordion>
+                <hr>
+                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{pokemon.abilities[0]?.name}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p class="fst-italic pt-2">{{pokemon.abilities[0]?.description}}</p>
+                </mat-expansion-panel>
+                <hr *ngIf="pokemon.abilities[1]">
+                <mat-expansion-panel  *ngIf="pokemon.abilities[1]" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{pokemon.abilities[1]?.name}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p class="fst-italic pt-2">{{pokemon.abilities[1]?.description}}</p>
+                </mat-expansion-panel>
+                <hr *ngIf="pokemon.abilities[2]">
+                <mat-expansion-panel  *ngIf="pokemon.abilities[2]" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{pokemon.abilities[2]?.name}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p class="fst-italic pt-2">{{pokemon.abilities[2]?.description}}</p>
+                </mat-expansion-panel>
+                <hr>
+              </mat-accordion>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 pb-3">
+              <h5 class="fst-italic">Informazioni aggiuntive</h5>
+              <p class="card-text">
+                <!-- INFO SULLE STATS DI ATTACCO -->
+                <span *ngIf="pokemon.stats.attack > pokemon.stats.spAttack">Questo pokemon è un attaccante fisico,
+                  pertanto è ideale giocarlo con un set di mosse fisiche.<span
+                    *ngIf="pokemon.stats.attack-pokemon.stats.spAttack < 25"> Vista la poca differenza tra le
+                    statistiche di base degli attacchi, giocarlo con un set speciale è comunque possibile.</span></span>
+                <span *ngIf="pokemon.stats.spAttack > pokemon.stats.attack">Questo pokemon è un attaccante speciale,
+                  pertanto è ideale giocarlo con un set di mosse speciali.<span
+                    *ngIf="pokemon.stats.spAttack-pokemon.stats.attack < 25"> Vista la poca differenza tra le
+                    statistiche di base degli attacchi, giocarlo con un set fisico è comunque possibile.</span></span>
+                <span *ngIf="pokemon.stats.attack == pokemon.stats.spAttack">Questo pokemon ha l'attacco fisico e
+                  speciale uguali, quindi è possibile giocarlo con un set fisico, speciale o addirittura misto.</span>
+                <!-- INFO SULLE STATS DI DIFESA -->
+                <span *ngIf="(pokemon.stats.defense + pokemon.stats.spDefense + pokemon.stats.hp)/pokemon.getTotalStats() > 0.55">
+                  Grazie alla combinazione delle sue statistiche di difesa, difesa speciale ed HP, è molto
+                  resiliente.</span>
+                <span *ngIf="(pokemon.stats.spDefense + pokemon.stats.defense + pokemon.stats.hp)/pokemon.getTotalStats() < 0.45"> È
+                  molto fragile e potrebbe essere rischioso pensare di tenerlo in campo molti turni.</span>
+                <span *ngIf="pokemon.stats.spDefense - pokemon.stats.defense > 40"> La difesa speciale di molto
+                  superiore a quella fisica lo rende un buon wall contro i pokemon speciali ed uno switch-in ideale
+                  contro di loro.</span>
+                <span *ngIf="pokemon.stats.defense - pokemon.stats.spDefense > 40"> La difesa fisica di molto superiore
+                  a quella speciale lo rende un buon wall contro i pokemon fisici ed uno switch-in ideale contro di
+                  loro.</span>
+                <!-- INFO SULLA VELOCITÁ -->
+                <span *ngIf="pokemon.stats.speed >= 95"> È un pokemon molto veloce, per cui anche senza fare speed
+                  control potrebbe risultare tra i primi a muvoersi nel turno. Di contro sotto Distortozona potrebbe
+                  andare in difficoltà.</span>
+                <span *ngIf="pokemon.stats.speed >= 60 && pokemon.stats.speed < 95"> Ha una velocità nella media e per
+                  attaccare per primo ha bisogno di speed control o di essere giocato con la Stolascelta.<span
+                    *ngIf="pokemon.stats.speed <= 80"> Può essere valido anche sotto Distortozona.</span></span>
+                <span *ngIf="pokemon.stats.speed <= 59"> È un pokemon molto lento e probabilmente neanche con la
+                  Stolascelta o sotto Ventoincoda attaccherebbe per primo. Ha bisogno di giocare sotto
+                  Distortozona per rendere al meglio.</span>
+                <span *ngIf="pokemon.getTotalStats() >= 600"> La somma delle statistiche di base è molto alta, indice di un pokemon
+                  molto forte!</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 pb-3">
+          <h5 class="fst-italic">Relazioni con gli altri tipi</h5>
+          <p *ngIf="pokemon.findRelations()[0].length > 0">Debolezze x4: <span [ngClass]="{
+            'grass': weakness == 'grass',
+            'fire': weakness == 'fire',
+            'water': weakness == 'water',
+            'normal': weakness == 'normal',
+            'bug': weakness == 'bug',
+            'poison': weakness == 'poison',
+            'electric': weakness == 'electric',
+            'ground': weakness == 'ground',
+            'fairy': weakness == 'fairy',
+            'fighting': weakness == 'fight',
+            'psychic': weakness == 'psychic',
+            'rock': weakness == 'rock',
+            'ghost': weakness == 'ghost',
+            'ice': weakness == 'ice',
+            'dragon': weakness == 'dragon',
+            'flying': weakness == 'flying',
+            'steel': weakness == 'steel',
+            'dark': weakness == 'dark'
+          }" *ngFor="let weakness of pokemon.findRelations()[0]"
+              class="px-1 m-1 rounded text-uppercase d-inline-block">{{weakness}}</span></p>
+          <p *ngIf="pokemon.findRelations()[1].length > 0">Debolezze x2: <span [ngClass]="{
+            'grass': weakness == 'grass',
+            'fire': weakness == 'fire',
+            'water': weakness == 'water',
+            'normal': weakness == 'normal',
+            'bug': weakness == 'bug',
+            'poison': weakness == 'poison',
+            'electric': weakness == 'electric',
+            'ground': weakness == 'ground',
+            'fairy': weakness == 'fairy',
+            'fighting': weakness == 'fight',
+            'psychic': weakness == 'psychic',
+            'rock': weakness == 'rock',
+            'ghost': weakness == 'ghost',
+            'ice': weakness == 'ice',
+            'dragon': weakness == 'dragon',
+            'flying': weakness == 'flying',
+            'steel': weakness == 'steel',
+            'dark': weakness == 'dark'
+          }" *ngFor="let weakness of pokemon.findRelations()[1]"
+              class="px-1 m-1 rounded text-uppercase d-inline-block">{{weakness}}</span></p>
+          <p *ngIf="pokemon.findRelations()[2].length > 0">Resistenze x2: <span [ngClass]="{
+            'grass': resistance == 'grass',
+            'fire': resistance == 'fire',
+            'water': resistance == 'water',
+            'normal': resistance == 'normal',
+            'bug': resistance == 'bug',
+            'poison': resistance == 'poison',
+            'electric': resistance == 'electric',
+            'ground': resistance == 'ground',
+            'fairy': resistance == 'fairy',
+            'fighting': resistance == 'fight',
+            'psychic': resistance == 'psychic',
+            'rock': resistance == 'rock',
+            'ghost': resistance == 'ghost',
+            'ice': resistance == 'ice',
+            'dragon': resistance == 'dragon',
+            'flying': resistance == 'flying',
+            'steel': resistance == 'steel',
+            'dark': resistance == 'dark'
+          }" *ngFor="let resistance of pokemon.findRelations()[2]"
+              class="px-1 m-1 rounded text-uppercase d-inline-block">{{resistance}}</span></p>
+          <p *ngIf="pokemon.findRelations()[3].length > 0">Resistenze x4: <span [ngClass]="{
+            'grass': resistance == 'grass',
+            'fire': resistance == 'fire',
+            'water': resistance == 'water',
+            'normal': resistance == 'normal',
+            'bug': resistance == 'bug',
+            'poison': resistance == 'poison',
+            'electric': resistance == 'electric',
+            'ground': resistance == 'ground',
+            'fairy': resistance == 'fairy',
+            'fighting': resistance == 'fight',
+            'psychic': resistance == 'psychic',
+            'rock': resistance == 'rock',
+            'ghost': resistance == 'ghost',
+            'ice': resistance == 'ice',
+            'dragon': resistance == 'dragon',
+            'flying': resistance == 'flying',
+            'steel': resistance == 'steel',
+            'dark': resistance == 'dark'
+          }" *ngFor="let resistance of pokemon.findRelations()[3]"
+              class="px-1 m-1 rounded text-uppercase d-inline-block">{{resistance}}</span></p>
+          <p *ngIf="pokemon.findRelations()[4].length > 0">Immunità: <span [ngClass]="{
+            'grass': immunity == 'grass',
+            'fire': immunity == 'fire',
+            'water': immunity == 'water',
+            'normal': immunity == 'normal',
+            'bug': immunity == 'bug',
+            'poison': immunity == 'poison',
+            'electric': immunity == 'electric',
+            'ground': immunity == 'ground',
+            'fairy': immunity == 'fairy',
+            'fighting': immunity == 'fight',
+            'psychic': immunity == 'psychic',
+            'rock': immunity == 'rock',
+            'ghost': immunity == 'ghost',
+            'ice': immunity == 'ice',
+            'dragon': immunity == 'dragon',
+            'flying': immunity == 'flying',
+            'steel': immunity == 'steel',
+            'dark': immunity == 'dark'
+          }" *ngFor="let immunity of pokemon.findRelations()[4]"
+              class="px-1 m-1 rounded text-uppercase d-inline-block">{{immunity}}</span></p>
+        </div>
+      </div>
+      <div class="text-center pt-5">
+        <button class="btn btn-outline-primary rounded-pill fs-3" (click)="compare(pokemon.name)">CONFRONTA POKEMON</button>
+      </div>
+      <div>
+        <p class="text-center fst-italic pt-5">Puoi trovare informazioni più dettagliate sull'uso in competitive di questo
+          pokemon <a [href]="'https://www.pikalytics.com/pokedex/gen9vgc2023regc/' + pokemon.name.toLowerCase()"
+            target="_blank">qui</a>. <br>
+          (Alcuni pokemon potrebbero non essere presenti perché esclusi dal regolamento vigente)</p>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      Tutti i diritti sono riservati ai legittimi proprietari.
+    </div>
+  </div>
+</article>
