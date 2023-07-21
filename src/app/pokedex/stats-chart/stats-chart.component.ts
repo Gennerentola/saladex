@@ -16,7 +16,6 @@ export class StatsChartComponent {
     if (changes['stats']) {
 
       if (this.chart) {
-        console.log(`cahrerrrr`);
         this.chart.destroy();
       }
       this.stats = changes['stats'].currentValue;

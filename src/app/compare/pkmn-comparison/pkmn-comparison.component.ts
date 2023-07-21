@@ -81,7 +81,6 @@ export class PkmnComparisonComponent {
   getScndPkmnToCompare(pknmName: string) {
     this.pokedexSrv.getPkmnToCompare(pknmName).subscribe({
       next: (res: any) => {
-        console.log(res)
         this.secondPokemon = new PkmnToCompareDTO(
           res.name.charAt(0).toUpperCase() + res.name.slice(1),
           [res.types[0].type.name, res.types[1]?.type.name],

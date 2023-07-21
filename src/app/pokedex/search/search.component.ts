@@ -68,7 +68,6 @@ export class SearchComponent {
                 } else {
                   this.sprite = this.firstRes.sprites.front_default
                 }
-                console.log(this.description);
                 this.description = this.description?.replaceAll("\n", " ");
                 this.description = this.description?.replaceAll("\u000c", " ");
                 if (secondRes.genera.find((genere: any) => genere.language.name == "it")) {

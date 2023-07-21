@@ -15,17 +15,20 @@ export class ComparisonChartComponent {
   chart: any;
 
   ngOnInit() {
-    this.createChart();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['firstPokemon']) {
-      this.chart.destroy();
+      if (this.chart) {
+        this.chart.destroy();
+      }
       this.firstPokemon = changes['firstPokemon'].currentValue;
       this.createChart();
     }
     if (changes['secondPokemon']) {
-      this.chart.destroy();
+      if (this.chart) {
+        this.chart.destroy();
+      }
       this.secondPokemon = changes['secondPokemon'].currentValue;
       this.createChart();
     }

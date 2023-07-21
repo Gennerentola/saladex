@@ -1,5 +1,5 @@
 <main class="pb-5">
-  <h2 class="text-light text-center py-3 display-2 px-2">Scrivi il nome del pokemon che vuoi cercare</h2>
+  <h2 class="text-light text-center py-3 display-2 px-2">Scrivi il nome del pokemon</h2>
   <form [formGroup]="searchbarForm" class="container my-5 d-flex justify-content-center"
     (submit)="search(this.searchbarForm.value.nome.toLowerCase())">
     <mat-form-field class="mx-3">
