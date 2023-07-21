@@ -15,7 +15,7 @@ mat-form-field {
 }
 
 ::ng-deep.cdk-overlay-pane {
-  position: absolute;
+  position: fixed;
   background-color: #fff;
 }
 
