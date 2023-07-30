@@ -41,13 +41,17 @@ export class SearchComponent {
       },
       error: err => {
         console.error(err);
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
       },
       complete: () => {
         if (this.pokedexSrv.nomePokemonToFind) {
           this.search(this.pokedexSrv.nomePokemonToFind);
         }
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
       }
     })
   }
@@ -105,7 +109,9 @@ export class SearchComponent {
               },
               error: (err) => {
                 console.error(err);
-                dialogRef.close();
+                setTimeout(() => {
+                  dialogRef.close();
+                }, 1000);
               },
               complete: () => {
                 this.pkmnFound = new PkmnDTO(
@@ -123,13 +129,17 @@ export class SearchComponent {
                   this.description,
                   this.genus
                 );
-                dialogRef.close();
+                setTimeout(() => {
+                  dialogRef.close();
+                }, 1000);
               }
             })
           },
           error: err => {
             console.error(err);
-            dialogRef.close();
+            setTimeout(() => {
+              dialogRef.close();
+            }, 1000);
           }
         })
       }

@@ -50,7 +50,9 @@ export class PkmnComparisonComponent {
       },
       error: (err) => {
         console.error(err);
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
       },
       complete: () => dialogRef.close()
     })
@@ -84,10 +86,14 @@ export class PkmnComparisonComponent {
       },
       error: (err) => {
         console.error(err);
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
       },
       complete: () => {
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
         this.compareType();
       }
     })
@@ -111,10 +117,14 @@ export class PkmnComparisonComponent {
       },
       error: (err) => {
         console.error(err);
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
       },
       complete: () => {
-        dialogRef.close();
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
         this.compareType();
       }
     })
