@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { ComparisonChartComponent } from './comparison-chart/comparison-chart.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { ComparisonChartComponent } from './comparison-chart/comparison-chart.co
     MatInputModule,
     MatFormFieldModule,
     MatExpansionModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [
     {

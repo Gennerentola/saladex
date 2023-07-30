@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Ability } from 'src/app/dto/ability.interface';
 import { PkmnReferenceDTO } from 'src/app/dto/pkmn-referenceDTO';
 import { PkmnDTO } from 'src/app/dto/pkmnDTO';
+import { LoadingFeedbackModalComponent } from 'src/app/loading-feedback-modal/loading-feedback-modal.component';
 import { PokedexService } from 'src/app/services/pokedex.service';
 
 @Component({
@@ -23,9 +25,10 @@ export class SearchComponent {
   possibleAbilities: Ability[] = [];
   firstRes: any;
 
-  constructor(private pokedexSrv: PokedexService) { }
+  constructor(private pokedexSrv: PokedexService, private dialog: MatDialog) { }
 
   ngOnInit() {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.searchbarForm = new FormGroup({
       nome: new FormControl('')
     })
@@ -36,16 +39,21 @@ export class SearchComponent {
           this.nameList.push(pkmn.name);
         })
       },
-      error: err => console.error(err),
+      error: err => {
+        console.error(err);
+        dialogRef.close();
+      },
       complete: () => {
         if (this.pokedexSrv.nomePokemonToFind) {
           this.search(this.pokedexSrv.nomePokemonToFind);
         }
+        dialogRef.close();
       }
     })
   }
 
   search(pkmnName: string) {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.possibleAbilities = [];
     let nome: string = pkmnName.toLowerCase();
     let pkmnRef: PkmnReferenceDTO;
@@ -80,7 +88,7 @@ export class SearchComponent {
                   let name = obj.ability.name.charAt(0).toUpperCase() + obj.ability.name.slice(1);
                   let abilityDescription: string;
                   this.pokedexSrv.getAbility(obj.ability.url).subscribe({
-                    next: (res:any) => {
+                    next: (res: any) => {
                       if (res.flavor_text_entries.find((desc: any) => desc.language.name == "it")) {
                         abilityDescription = res.flavor_text_entries.find((desc: any) => desc.language.name == "it").flavor_text;
                       } else {
@@ -90,12 +98,15 @@ export class SearchComponent {
                         name: name,
                         description: abilityDescription
                       }
-                    this.possibleAbilities.push(abilityFormat);
+                      this.possibleAbilities.push(abilityFormat);
                     }
                   })
                 })
               },
-              error: err => console.error(err),
+              error: (err) => {
+                console.error(err);
+                dialogRef.close();
+              },
               complete: () => {
                 this.pkmnFound = new PkmnDTO(
                   this.dexNum,
@@ -112,10 +123,14 @@ export class SearchComponent {
                   this.description,
                   this.genus
                 );
+                dialogRef.close();
               }
             })
           },
-          error: err => console.error(err)
+          error: err => {
+            console.error(err);
+            dialogRef.close();
+          }
         })
       }
     })

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PkmnReferenceDTO } from 'src/app/dto/pkmn-referenceDTO';
 import { PkmnToCompareDTO } from 'src/app/dto/pkmnToCompareDTO';
+import { LoadingFeedbackModalComponent } from 'src/app/loading-feedback-modal/loading-feedback-modal.component';
 import { PokedexService } from 'src/app/services/pokedex.service';
 
 @Component({
@@ -23,9 +25,10 @@ export class PkmnComparisonComponent {
   isFirstPkmnImmune: boolean = false;
   isSecondPkmnImmune: boolean = false;
 
-  constructor(private pokedexSrv: PokedexService, private router: Router) { }
+  constructor(private pokedexSrv: PokedexService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     if (this.pokedexSrv.nomePokemonToCompare) {
       this.firstPkmnForm = new FormGroup({
         nome: new FormControl(this.pokedexSrv.nomePokemonToCompare)
@@ -45,7 +48,11 @@ export class PkmnComparisonComponent {
           this.nameList.push(pkmn.name);
         })
       },
-      error: err => console.error(err)
+      error: (err) => {
+        console.error(err);
+        dialogRef.close();
+      },
+      complete: () => dialogRef.close()
     })
     if (this.pokedexSrv.nomePokemonToCompare) {
       let pkmnName = this.pokedexSrv.nomePokemonToCompare;
@@ -60,6 +67,7 @@ export class PkmnComparisonComponent {
   }
 
   getFrstPkmnToCompare(pknmName: string) {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.pokedexSrv.getPkmnToCompare(pknmName).subscribe({
       next: (res: any) => {
         this.firstPokemon = new PkmnToCompareDTO(
@@ -74,11 +82,19 @@ export class PkmnComparisonComponent {
           res.sprites.front_default
         )
       },
-      complete: () => this.compareType()
+      error: (err) => {
+        console.error(err);
+        dialogRef.close();
+      },
+      complete: () => {
+        dialogRef.close();
+        this.compareType();
+      }
     })
   }
 
   getScndPkmnToCompare(pknmName: string) {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.pokedexSrv.getPkmnToCompare(pknmName).subscribe({
       next: (res: any) => {
         this.secondPokemon = new PkmnToCompareDTO(
@@ -93,7 +109,14 @@ export class PkmnComparisonComponent {
           res.sprites.front_default
         )
       },
-      complete: () => this.compareType()
+      error: (err) => {
+        console.error(err);
+        dialogRef.close();
+      },
+      complete: () => {
+        dialogRef.close();
+        this.compareType();
+      }
     })
   }
 
