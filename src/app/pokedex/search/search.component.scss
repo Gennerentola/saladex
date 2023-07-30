@@ -12,7 +12,7 @@ mat-form-field {
     'wght' 400,
     'GRAD' 0,
     'opsz' 48;
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 :host::ng-deep.mat-mdc-form-field-subscript-wrapper {
@@ -60,4 +60,13 @@ input {
 :host::ng-deep.mat-mdc-form-field-flex {
   display: flex;
   align-items: center;
+}
+
+:host::ng-deep.mat-mdc-text-field-wrapper {
+  align-items: center;
+}
+
+.btn-outline-light {
+  width: 80px;
+  height: 40px;
 }

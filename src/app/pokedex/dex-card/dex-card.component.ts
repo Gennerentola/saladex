@@ -1,7 +1,9 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Ability } from 'src/app/dto/ability.interface';
 import { PkmnDTO } from 'src/app/dto/pkmnDTO';
+import { LoadingFeedbackModalComponent } from 'src/app/loading-feedback-modal/loading-feedback-modal.component';
 import { PokedexService } from 'src/app/services/pokedex.service';
 
 @Component({
@@ -21,7 +23,7 @@ export class DexCardComponent {
   firstRes: any;
   panelOpenState: boolean = false;
 
-  constructor(private pokedexSrv: PokedexService, private router: Router) {}
+  constructor(private pokedexSrv: PokedexService, private router: Router, private dialog: MatDialog) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pokemon']) {
@@ -30,6 +32,7 @@ export class DexCardComponent {
   }
 
   nextSearch(dexNumb: number) {
+    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.possibleAbilities = [];
     this.pokedexSrv.getPokemonByDexNumber(dexNumb).subscribe({
       next: (res: any) => {
@@ -59,7 +62,7 @@ export class DexCardComponent {
               let name = obj.ability.name.charAt(0).toUpperCase() + obj.ability.name.slice(1);
               let abilityDescription: string;
               this.pokedexSrv.getAbility(obj.ability.url).subscribe({
-                next: (res:any) => {
+                next: (res: any) => {
                   if (res.flavor_text_entries.find((desc: any) => desc.language.name == "it")) {
                     abilityDescription = res.flavor_text_entries.find((desc: any) => desc.language.name == "it").flavor_text;
                   } else {
@@ -69,12 +72,17 @@ export class DexCardComponent {
                     name: name,
                     description: abilityDescription
                   }
-                this.possibleAbilities.push(abilityFormat);
+                  this.possibleAbilities.push(abilityFormat);
                 }
               })
             })
           },
-          error: err => console.error(err),
+          error: (err) => {
+            console.error(err);
+            setTimeout(() => {
+              dialogRef.close();
+            }, 1000);
+          },
           complete: () => {
             this.pokemon = new PkmnDTO(
               this.dexNum,
@@ -91,10 +99,18 @@ export class DexCardComponent {
               this.description,
               this.genus
             );
+            setTimeout(() => {
+              dialogRef.close();
+            }, 1000);
           }
         })
       },
-      error: err => console.error(err)
+      error: (err) => {
+        console.error(err);
+        setTimeout(() => {
+          dialogRef.close();
+        }, 1000);
+      },
     })
   }
 
