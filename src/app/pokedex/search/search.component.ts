@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { NEVER } from 'rxjs';
 import { Ability } from 'src/app/dto/ability.interface';
 import { PkmnReferenceDTO } from 'src/app/dto/pkmn-referenceDTO';
 import { PkmnDTO } from 'src/app/dto/pkmnDTO';
@@ -57,12 +58,12 @@ export class SearchComponent {
   }
 
   search(pkmnName: string) {
-    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
     this.possibleAbilities = [];
     let nome: string = pkmnName.toLowerCase();
     let pkmnRef: PkmnReferenceDTO;
     this.pokedex.filter(pokemon => {
       if (pokemon.name == nome) {
+        const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
         pkmnRef = new PkmnReferenceDTO(pokemon.name, pokemon.url);
         this.pokedexSrv.getSinglePokemon(pkmnRef.url).subscribe({
           next: (res: any) => {
