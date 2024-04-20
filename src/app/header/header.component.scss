@@ -4,5 +4,9 @@ h1 {
   span {
     color: #ba004f;
   }
-  text-shadow: #000 1px 0 10px;;
+  text-shadow: #000 1px 0 10px;
+}
+
+img {
+  width: clamp(150px, 30vw, 300px);
 }

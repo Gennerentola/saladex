@@ -7,6 +7,7 @@ import { PokedexModule } from './pokedex/pokedex.module';
 import { CompareModule } from './compare/compare.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { BattleSimulatorRouting } from './battle-simulator/battle-simulator.routing';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
     PokedexModule,
     HttpClientModule,
-    CompareModule
+    CompareModule,
+    BattleSimulatorRouting
   ],
   providers: [],
   bootstrap: [AppComponent]

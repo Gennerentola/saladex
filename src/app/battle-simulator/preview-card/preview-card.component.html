@@ -1,0 +1,207 @@
+<article class="my-5 card text-center mx-auto" *ngIf="pokemon.name != ''">
+  <div class="card-body">
+    <h5 class="card-title text-capitalize display-4">{{pokemon.name}}</h5>
+    <section class="d-flex flex-column flex-md-row justify-content-md-evenly align-items-center">
+      <div class="d-flex flex-column align-items-center">
+        <img class="pkmnPreviewImg" [src]="pokemon.sprites.previewSprite" alt="foto pokemon">
+        <div class="pt-2">
+          <span class="text-uppercase px-1 pb-1" [ngClass]="{
+          'grass': pokemon.types[0] == 'grass',
+          'fire': pokemon.types[0] == 'fire',
+          'water': pokemon.types[0] == 'water',
+          'normal': pokemon.types[0] == 'normal',
+          'bug': pokemon.types[0] == 'bug',
+          'poison': pokemon.types[0] == 'poison',
+          'electric': pokemon.types[0] == 'electric',
+          'ground': pokemon.types[0] == 'ground',
+          'fairy': pokemon.types[0] == 'fairy',
+          'fighting': pokemon.types[0] == 'fighting',
+          'psychic': pokemon.types[0] == 'psychic',
+          'rock': pokemon.types[0] == 'rock',
+          'ghost': pokemon.types[0] == 'ghost',
+          'ice': pokemon.types[0] == 'ice',
+          'dragon': pokemon.types[0] == 'dragon',
+          'flying': pokemon.types[0] == 'flying',
+          'steel': pokemon.types[0] == 'steel',
+          'dark': pokemon.types[0] == 'dark',
+          'rounded-start' : pokemon.types[1],
+          'rounded' : !pokemon.types[1]
+        }">{{pokemon.types[0]}}</span>
+          <span class="text-uppercase px-1 pb-1 rounded-end" *ngIf="pokemon.types[1]" [ngClass]="{
+          'grass': pokemon.types[1] == 'grass',
+          'fire': pokemon.types[1] == 'fire',
+          'water': pokemon.types[1] == 'water',
+          'normal': pokemon.types[1] == 'normal',
+          'bug': pokemon.types[1] == 'bug',
+          'poison': pokemon.types[1] == 'poison',
+          'electric': pokemon.types[1] == 'electric',
+          'ground': pokemon.types[1] == 'ground',
+          'fairy': pokemon.types[1] == 'fairy',
+          'fighting': pokemon.types[1] == 'fighting',
+          'psychic': pokemon.types[1] == 'psychic',
+          'rock': pokemon.types[1] == 'rock',
+          'ghost': pokemon.types[1] == 'ghost',
+          'ice': pokemon.types[1] == 'ice',
+          'dragon': pokemon.types[1] == 'dragon',
+          'flying': pokemon.types[1] == 'flying',
+          'steel': pokemon.types[1] == 'steel',
+          'dark': pokemon.types[1] == 'dark'
+        }">{{pokemon.types[1]}}</span>
+        </div>
+      </div>
+      <div>
+        <app-preview-chart [baseStats]="pokemon.baseStats"></app-preview-chart>
+      </div>
+    </section>
+    <section class="container mx-auto my-1 p-3">
+      <p class="text-center fst-italic fs-3">Scegli le mosse</p>
+      <div class="d-flex flex-column flex-md-row justify-content-md-evenly align-items-center">
+        <ul class="list-group moveDivs">
+          <li [ngClass]="{'list-group-item-primary' : choosenMovesNames.includes(move.name)}"
+            class="list-group-item list-group-item-action text-capitalize" *ngFor="let move of pokemon.moves"
+            (click)="pickMove(move)">
+            {{ move.name.replace('-', ' ') }}</li>
+        </ul>
+        <div class="moveDivs d-flex flex-column justify-content-evenly">
+          <div class="moveInfo d-flex align-items-center card mb-0">
+            <p [ngClass]="{
+              'grass': movesPreview[0].type == 'grass',
+              'fire': movesPreview[0].type == 'fire',
+              'water': movesPreview[0].type == 'water',
+              'normal': movesPreview[0].type == 'normal',
+              'bug': movesPreview[0].type == 'bug',
+              'poison': movesPreview[0].type == 'poison',
+              'electric': movesPreview[0].type == 'electric',
+              'ground': movesPreview[0].type == 'ground',
+              'fairy': movesPreview[0].type == 'fairy',
+              'fighting': movesPreview[0].type == 'fighting',
+              'psychic': movesPreview[0].type == 'psychic',
+              'rock': movesPreview[0].type == 'rock',
+              'ghost': movesPreview[0].type == 'ghost',
+              'ice': movesPreview[0].type == 'ice',
+              'dragon': movesPreview[0].type == 'dragon',
+              'flying': movesPreview[0].type == 'flying',
+              'steel': movesPreview[0].type == 'steel',
+              'dark': movesPreview[0].type == 'dark'
+            }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
+              *ngIf="movesPreview[0]" (click)="deleteMove(movesPreview[0].name)" ><span
+                [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[0].type || pokemon.types[1] == movesPreview[0].type}"
+                class="text-capitalize"><img class="typeIcon"
+                  [src]="imgAssetsPath + movesPreview[0].type + imgExtension"> {{
+                movesPreview[0].name }}</span><span class="fst-italic lowSizeFont d-none d-md-inline-block">{{
+                movesPreview[0].effectDescription.replace('$effect_chance', movesPreview[0].effectChance !== null ?
+                movesPreview[0].effectChance!.toString() : '')
+                }}</span><span>Potenza: {{
+                movesPreview[0].power }} | <img class="damageClassIcon"
+                  [src]="imgAssetsPath + movesPreview[0].damageClass + imgExtension"></span></p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[0]">Scegli una mossa dalla lista</p>
+          </div>
+          <div class="moveInfo d-flex align-items-center card mb-0">
+            <p [ngClass]="{
+              'grass': movesPreview[1].type == 'grass',
+              'fire': movesPreview[1].type == 'fire',
+              'water': movesPreview[1].type == 'water',
+              'normal': movesPreview[1].type == 'normal',
+              'bug': movesPreview[1].type == 'bug',
+              'poison': movesPreview[1].type == 'poison',
+              'electric': movesPreview[1].type == 'electric',
+              'ground': movesPreview[1].type == 'ground',
+              'fairy': movesPreview[1].type == 'fairy',
+              'fighting': movesPreview[1].type == 'fighting',
+              'psychic': movesPreview[1].type == 'psychic',
+              'rock': movesPreview[1].type == 'rock',
+              'ghost': movesPreview[1].type == 'ghost',
+              'ice': movesPreview[1].type == 'ice',
+              'dragon': movesPreview[1].type == 'dragon',
+              'flying': movesPreview[1].type == 'flying',
+              'steel': movesPreview[1].type == 'steel',
+              'dark': movesPreview[1].type == 'dark'
+            }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
+              *ngIf="movesPreview[1]" (click)="deleteMove(movesPreview[1].name)" ><span
+                [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[1].type || pokemon.types[1] == movesPreview[1].type}"
+                class="text-capitalize"><img class="typeIcon"
+                  [src]="imgAssetsPath + movesPreview[1].type + imgExtension"> {{
+                movesPreview[1].name }}</span><span class="fst-italic lowSizeFont d-none d-md-inline-block">{{
+                movesPreview[1].effectDescription.replace('$effect_chance', movesPreview[1].effectChance !== null ?
+                movesPreview[1].effectChance!.toString() : '')
+                }}</span><span>Potenza: {{
+                movesPreview[1].power }} | <img class="damageClassIcon"
+                  [src]="imgAssetsPath + movesPreview[1].damageClass + imgExtension"></span></p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[1]">Scegli una mossa dalla lista</p>
+          </div>
+          <div class="moveInfo d-flex align-items-center card mb-0">
+            <p [ngClass]="{
+              'grass': movesPreview[2].type == 'grass',
+              'fire': movesPreview[2].type == 'fire',
+              'water': movesPreview[2].type == 'water',
+              'normal': movesPreview[2].type == 'normal',
+              'bug': movesPreview[2].type == 'bug',
+              'poison': movesPreview[2].type == 'poison',
+              'electric': movesPreview[2].type == 'electric',
+              'ground': movesPreview[2].type == 'ground',
+              'fairy': movesPreview[2].type == 'fairy',
+              'fighting': movesPreview[2].type == 'fighting',
+              'psychic': movesPreview[2].type == 'psychic',
+              'rock': movesPreview[2].type == 'rock',
+              'ghost': movesPreview[2].type == 'ghost',
+              'ice': movesPreview[2].type == 'ice',
+              'dragon': movesPreview[2].type == 'dragon',
+              'flying': movesPreview[2].type == 'flying',
+              'steel': movesPreview[2].type == 'steel',
+              'dark': movesPreview[2].type == 'dark'
+            }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
+              *ngIf="movesPreview[2]" (click)="deleteMove(movesPreview[2].name)" >
+              <span
+                [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[2].type || pokemon.types[1] == movesPreview[2].type}"
+                class="text-capitalize"><img class="typeIcon"
+                  [src]="imgAssetsPath + movesPreview[2].type + imgExtension"> {{
+                movesPreview[2].name }}</span><span class="fst-italic lowSizeFont d-none d-md-inline-block">{{
+                movesPreview[2].effectDescription.replace('$effect_chance', movesPreview[2].effectChance !== null ?
+                movesPreview[2].effectChance!.toString() : '')
+                }}</span>
+              <span>Potenza: {{
+                movesPreview[2].power }} | <img class="damageClassIcon"
+                  [src]="imgAssetsPath + movesPreview[2].damageClass + imgExtension"></span>
+            </p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[2]">Scegli una mossa dalla lista</p>
+          </div>
+          <div class="moveInfo d-flex align-items-center card mb-0">
+            <p [ngClass]="{
+              'grass': movesPreview[3].type == 'grass',
+              'fire': movesPreview[3].type == 'fire',
+              'water': movesPreview[3].type == 'water',
+              'normal': movesPreview[3].type == 'normal',
+              'bug': movesPreview[3].type == 'bug',
+              'poison': movesPreview[3].type == 'poison',
+              'electric': movesPreview[3].type == 'electric',
+              'ground': movesPreview[3].type == 'ground',
+              'fairy': movesPreview[3].type == 'fairy',
+              'fighting': movesPreview[3].type == 'fighting',
+              'psychic': movesPreview[3].type == 'psychic',
+              'rock': movesPreview[3].type == 'rock',
+              'ghost': movesPreview[3].type == 'ghost',
+              'ice': movesPreview[3].type == 'ice',
+              'dragon': movesPreview[3].type == 'dragon',
+              'flying': movesPreview[3].type == 'flying',
+              'steel': movesPreview[3].type == 'steel',
+              'dark': movesPreview[3].type == 'dark'
+            }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
+              *ngIf="movesPreview[3]" (click)="deleteMove(movesPreview[3].name)" ><span
+                [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[3].type || pokemon.types[1] == movesPreview[3].type}"
+                class="text-capitalize"><img class="typeIcon"
+                  [src]="imgAssetsPath + movesPreview[3].type + imgExtension"> {{
+                movesPreview[3].name }}</span><span class="fst-italic lowSizeFont d-none d-xxl-inline-block">{{
+                movesPreview[3].effectDescription.replace('$effect_chance', movesPreview[3].effectChance !== null ?
+                movesPreview[3].effectChance!.toString() : '')
+                }}</span><span>Potenza: {{
+                movesPreview[3].power }} | <img class="damageClassIcon"
+                  [src]="imgAssetsPath + movesPreview[3].damageClass + imgExtension"></span></p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[3]">Scegli una mossa dalla lista</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button type="button" class="btn btn-outline-primary fs-3 d-flex align-items-center justify-content-center mx-auto my-3" (click)="savePokemon()">SCEGLI</button>
+    <button *ngIf="ownPkmn.name != '' && enemyPkmn.name != ''" class="btn btn-outline-primary fs-3 mx-auto" (click)="goToBattle()" type="button">{{ownPkmn.name.toLocaleUpperCase()}} VS {{enemyPkmn.name.toLocaleUpperCase()}} <br> VAI AL COMBATTIMENTO</button>
+  </div>
+</article>
