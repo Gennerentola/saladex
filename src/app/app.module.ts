@@ -8,6 +8,7 @@ import { CompareModule } from './compare/compare.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { BattleSimulatorRouting } from './battle-simulator/battle-simulator.routing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BattleSimulatorRouting } from './battle-simulator/battle-simulator.rout
     PokedexModule,
     HttpClientModule,
     CompareModule,
-    BattleSimulatorRouting
+    BattleSimulatorRouting,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

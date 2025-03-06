@@ -3,7 +3,7 @@
     <span *ngIf="ownPkmn.name == ''">Scegli il tuo pokemon</span>
     <span *ngIf="ownPkmn.name != ''">Scegli il pokemon avversario</span>
   </h2>
-  <form [formGroup]="searchbarForm" class="d-flex justify-content-center">
+  <!-- <form [formGroup]="searchbarForm" class="d-flex justify-content-center" (submit)="onSubmit()">
     <mat-form-field class="mx-3">
       <mat-label>Cerca</mat-label>
       <input matInput formControlName="nome" type="text" [matAutocomplete]="auto"
@@ -16,7 +16,19 @@
     </mat-autocomplete>
   </form>
   <div class="w-100 d-flex justify-content-center">
-    <button *ngIf="ownPkmn.name != ''" class="btn btn-outline-light mx-auto my-3" type="button" (click)="clearChoosenPkmn()">HAI SCELTO {{ownPkmn.name.toLocaleUpperCase()}} <br> CAMBIA</button>
+    <button *ngIf="ownPkmn.name != ''" class="btn btn-outline-light mx-auto my-3" type="button"
+      (click)="clearChoosenPkmn()">HAI SCELTO {{ownPkmn.name.toLocaleUpperCase()}} <br> CAMBIA</button>
   </div>
-  <app-preview-card *ngIf="pkmnPreview" [pokemon]="pkmnPreview" ></app-preview-card>
+  <app-preview-card *ngIf="pkmnPreview" [pokemon]="pkmnPreview"></app-preview-card> -->
+  <div class="container">
+    <div class="row">
+      <app-demo-selection class="col-12 col-md-4 mb-3" *ngFor="let rentPkmn of rentalPkmn"  [pkmnToShow]="rentPkmn" (click)="selectPkmn(rentPkmn)"></app-demo-selection>
+    </div>
+    <div class="w-100 d-flex justify-content-evenly">
+      <button [disabled]="ownPkmn?.name == ''" class="btn btn-light my-3" type="button"
+      (click)="clearChoosenPkmn()">RESET</button>
+      <button [disabled]="enemyPkmn?.name == ''"class="btn btn-light my-3" type="button"
+      (click)="goToBattle()">VAI ALLA LOTTA</button>
+    </div>
+  </div>
 </main>

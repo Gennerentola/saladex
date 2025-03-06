@@ -2,7 +2,7 @@ export interface Move {
   name: string,
   power: number,
   type: string,
-  damageClass: "physical" | "special" | "status",
+  damageClass: string,
   statChanges: StatChange[] | null,
   priority: number,
   minHits: number | null,

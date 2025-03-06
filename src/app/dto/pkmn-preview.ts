@@ -14,6 +14,7 @@ export class PkmnPreview {
   sprites: {
     previewSprite: string,
     battleSprite: string
+    enemySprite?: string;
   };
   abilities: string[];
   moves: MoveReferenceDTO[];
@@ -31,6 +32,7 @@ export class PkmnPreview {
     _battleSprite: string,
     _abilities: string[],
     _moves: MoveReferenceDTO[],
+    _enemySprite: string,
   ) {
     this.name = _name;
     this.types = _types;
@@ -44,10 +46,10 @@ export class PkmnPreview {
     };
     this.sprites = {
       previewSprite: _previewSprite,
-      battleSprite: _battleSprite
+      battleSprite: _battleSprite,
+      enemySprite: _enemySprite
     },
     this.abilities = _abilities;
     this.moves = _moves;
-
   }
 }

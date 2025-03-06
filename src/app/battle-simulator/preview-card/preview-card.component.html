@@ -84,7 +84,7 @@
               'steel': movesPreview[0].type == 'steel',
               'dark': movesPreview[0].type == 'dark'
             }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
-              *ngIf="movesPreview[0]" (click)="deleteMove(movesPreview[0].name)" ><span
+              *ngIf="movesPreview[0]" (click)="deleteMove(movesPreview[0].name)"><span
                 [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[0].type || pokemon.types[1] == movesPreview[0].type}"
                 class="text-capitalize"><img class="typeIcon"
                   [src]="imgAssetsPath + movesPreview[0].type + imgExtension"> {{
@@ -94,7 +94,8 @@
                 }}</span><span>Potenza: {{
                 movesPreview[0].power }} | <img class="damageClassIcon"
                   [src]="imgAssetsPath + movesPreview[0].damageClass + imgExtension"></span></p>
-            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[0]">Scegli una mossa dalla lista</p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[0]">Scegli
+              una mossa dalla lista</p>
           </div>
           <div class="moveInfo d-flex align-items-center card mb-0">
             <p [ngClass]="{
@@ -117,7 +118,7 @@
               'steel': movesPreview[1].type == 'steel',
               'dark': movesPreview[1].type == 'dark'
             }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
-              *ngIf="movesPreview[1]" (click)="deleteMove(movesPreview[1].name)" ><span
+              *ngIf="movesPreview[1]" (click)="deleteMove(movesPreview[1].name)"><span
                 [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[1].type || pokemon.types[1] == movesPreview[1].type}"
                 class="text-capitalize"><img class="typeIcon"
                   [src]="imgAssetsPath + movesPreview[1].type + imgExtension"> {{
@@ -127,7 +128,8 @@
                 }}</span><span>Potenza: {{
                 movesPreview[1].power }} | <img class="damageClassIcon"
                   [src]="imgAssetsPath + movesPreview[1].damageClass + imgExtension"></span></p>
-            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[1]">Scegli una mossa dalla lista</p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[1]">Scegli
+              una mossa dalla lista</p>
           </div>
           <div class="moveInfo d-flex align-items-center card mb-0">
             <p [ngClass]="{
@@ -150,7 +152,7 @@
               'steel': movesPreview[2].type == 'steel',
               'dark': movesPreview[2].type == 'dark'
             }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
-              *ngIf="movesPreview[2]" (click)="deleteMove(movesPreview[2].name)" >
+              *ngIf="movesPreview[2]" (click)="deleteMove(movesPreview[2].name)">
               <span
                 [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[2].type || pokemon.types[1] == movesPreview[2].type}"
                 class="text-capitalize"><img class="typeIcon"
@@ -163,7 +165,8 @@
                 movesPreview[2].power }} | <img class="damageClassIcon"
                   [src]="imgAssetsPath + movesPreview[2].damageClass + imgExtension"></span>
             </p>
-            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[2]">Scegli una mossa dalla lista</p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[2]">Scegli
+              una mossa dalla lista</p>
           </div>
           <div class="moveInfo d-flex align-items-center card mb-0">
             <p [ngClass]="{
@@ -186,7 +189,7 @@
               'steel': movesPreview[3].type == 'steel',
               'dark': movesPreview[3].type == 'dark'
             }" class="mb-0 d-flex justify-content-between align-items-center px-2 w-100 moveParagraph"
-              *ngIf="movesPreview[3]" (click)="deleteMove(movesPreview[3].name)" ><span
+              *ngIf="movesPreview[3]" (click)="deleteMove(movesPreview[3].name)"><span
                 [ngClass]="{'fw-bold' : pokemon.types[0] == movesPreview[3].type || pokemon.types[1] == movesPreview[3].type}"
                 class="text-capitalize"><img class="typeIcon"
                   [src]="imgAssetsPath + movesPreview[3].type + imgExtension"> {{
@@ -196,12 +199,17 @@
                 }}</span><span>Potenza: {{
                 movesPreview[3].power }} | <img class="damageClassIcon"
                   [src]="imgAssetsPath + movesPreview[3].damageClass + imgExtension"></span></p>
-            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[3]">Scegli una mossa dalla lista</p>
+            <p class="mb-0 w-100 h-100 d-flex justify-content-center align-items-center" *ngIf="!movesPreview[3]">Scegli
+              una mossa dalla lista</p>
           </div>
         </div>
       </div>
     </section>
-    <button type="button" class="btn btn-outline-primary fs-3 d-flex align-items-center justify-content-center mx-auto my-3" (click)="savePokemon()">SCEGLI</button>
-    <button *ngIf="ownPkmn.name != '' && enemyPkmn.name != ''" class="btn btn-outline-primary fs-3 mx-auto" (click)="goToBattle()" type="button">{{ownPkmn.name.toLocaleUpperCase()}} VS {{enemyPkmn.name.toLocaleUpperCase()}} <br> VAI AL COMBATTIMENTO</button>
+    <button type="button"
+      class="btn btn-outline-primary fs-3 d-flex align-items-center justify-content-center mx-auto my-3"
+      (click)="savePokemon()">SCEGLI</button>
+    <button *ngIf="ownPkmn.name != '' && enemyPkmn.name != ''" class="btn btn-outline-primary fs-3 mx-auto"
+      (click)="goToBattle()" type="button">{{ownPkmn.name.toLocaleUpperCase()}} VS
+      {{enemyPkmn.name.toLocaleUpperCase()}} <br> VAI AL COMBATTIMENTO</button>
   </div>
 </article>

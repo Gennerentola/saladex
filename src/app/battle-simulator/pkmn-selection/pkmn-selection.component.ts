@@ -15,6 +15,10 @@ import { LoadingFeedbackModalComponent } from 'src/app/loading-feedback-modal/lo
 import { PokedexService } from 'src/app/services/pokedex.service';
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
 import { BattleSimulatorService } from 'src/app/services/battle-simulator.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { DemoSelectionComponent } from "../demo-selection/demo-selection.component";
+import { rentalPkmn } from 'src/assets/demo-files/demo-pkmn';
 
 @Component({
   selector: 'app-pkmn-selection',
@@ -29,8 +33,9 @@ import { BattleSimulatorService } from 'src/app/services/battle-simulator.servic
     MatExpansionModule,
     MatButtonModule,
     MatDialogModule,
-    PreviewCardComponent
-  ],
+    PreviewCardComponent,
+    DemoSelectionComponent
+],
   templateUrl: './pkmn-selection.component.html',
   styleUrls: ['./pkmn-selection.component.scss'],
 })
@@ -43,11 +48,12 @@ export class PkmnSelectionComponent {
   ownPkmn!: BattlePkmn;
   enemyPkmn!: BattlePkmn;
   response: any;
+  rentalPkmn: BattlePkmn[] = rentalPkmn
 
-  constructor(private pokedexSrv: PokedexService, private dialog: MatDialog, private battleSimulatorSrv: BattleSimulatorService) {}
+  constructor(private pokedexSrv: PokedexService, private dialog: MatDialog, private battleSimulatorSrv: BattleSimulatorService, private router: Router) {}
 
   ngOnInit() {
-    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
+    // const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
 
     this.battleSimulatorSrv.ownPkmn$.subscribe(pkmn => {
       this.ownPkmn = pkmn;
@@ -57,73 +63,109 @@ export class PkmnSelectionComponent {
       this.enemyPkmn = pkmn;
     });
 
-    this.searchbarForm = new FormGroup({
-      nome: new FormControl('')
-    })
-    this.pokedexSrv.getAllPokemon().subscribe({
-      next: res => {
-        this.pokedex = res.results;
-        this.pokeList = res.results;
-      },
-      error: err => {
-        console.error(err);
-        dialogRef.close();
-      },
-      complete: () => dialogRef.close()
-    })
+    // this.searchbarForm = new FormGroup({
+    //   nome: new FormControl('')
+    // })
+    // this.pokedexSrv.getAllPokemon().subscribe({
+    //   next: res => {
+    //     this.pokedex = res.results;
+    //     this.pokeList = res.results;
+    //   },
+    //   error: err => {
+    //     console.error(err);
+    //     dialogRef.close();
+    //   },
+    //   complete: () => dialogRef.close()
+    // })
   }
 
-  liveSearch(keyboardInput: string) {
-    this.pokeList = [];
-    this.pokedex.filter(pkmn => {
-      if (pkmn.name.toLowerCase().indexOf(keyboardInput.toLowerCase()) > -1) {
-        this.pokeList.push(pkmn);
-      }
-    })
-  }
+  // liveSearch(keyboardInput: string) {
+  //   this.pokeList = [];
+  //   this.pokedex.filter(pkmn => {
+  //     if (pkmn.name.toLowerCase().indexOf(keyboardInput.toLowerCase()) > -1) {
+  //       this.pokeList.push(pkmn);
+  //     }
+  //   })
+  // }
 
-  searchPkmn(url: string) {
-    const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
-    this.pokedexSrv.getSinglePokemon(url).subscribe({
-      next: (res: any) => {
-        this.response = res;
-      },
-      error: () => dialogRef.close(),
-      complete: () => {
-        let pkmnTypes: any[] = [];
-        let pkmnAbilities: any[] = [];
-        let pkmnMoves: any[] = [];
-        this.response.types.forEach((type: any) => {
-          pkmnTypes.push(type.type.name);
-        });
-        this.response.abilities.forEach((ability: any) => {
-          pkmnAbilities.push(ability.ability.name);
-        });
-        this.response.moves.forEach((e: any) => {
-          pkmnMoves.push(e.move);
-        })
-        this.pkmnPreview = new PkmnPreview(
-          this.response.name,
-          pkmnTypes,
-          this.response.stats[0].base_stat,
-          this.response.stats[1].base_stat,
-          this.response.stats[2].base_stat,
-          this.response.stats[3].base_stat,
-          this.response.stats[4].base_stat,
-          this.response.stats[5].base_stat,
-          this.response.sprites.other.home.front_default,
-          this.battleSimulatorSrv.ownPkmn.value.name != '' ? (this.response.sprites.other.showdown.front_default ? this.response.sprites.other.showdown.front_default : this.pkmnPreview.sprites.previewSprite) : (this.response.sprites.other.showdown.back_default ? this.response.sprites.other.showdown.back_default : this.pkmnPreview.sprites.previewSprite),
-          pkmnAbilities,
-          pkmnMoves
-        );
-        dialogRef.close();
-      }
-    })
-  }
+  // onSubmit() {
+  //   const query = this.searchbarForm.value.nome;
+  //   const selectedPkmn = this.pokeList.find(pkmn => pkmn.name.toLowerCase() === query.toLowerCase());
+
+  //   if (selectedPkmn) {
+  //     this.searchPkmn(selectedPkmn.url);
+  //   } else {
+  //     Swal.fire({
+  //       title: "Nessun pokemon trovato con quel noome",
+  //       icon: "error",
+  //       showCancelButton: false,
+  //       confirmButtonColor: "#00A0B6",
+  //       confirmButtonText: "Chiudi",
+  //     })
+  //   }
+  // }
+
+  // searchPkmn(url: string) {
+  //   const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
+  //   this.pokedexSrv.getSinglePokemon(url).subscribe({
+  //     next: (res: any) => {
+  //       this.response = res;
+  //     },
+  //     error: () => dialogRef.close(),
+  //     complete: () => {
+  //       let pkmnTypes: any[] = [];
+  //       let pkmnAbilities: any[] = [];
+  //       let pkmnMoves: any[] = [];
+  //       this.response.types.forEach((type: any) => {
+  //         pkmnTypes.push(type.type.name);
+  //       });
+  //       this.response.abilities.forEach((ability: any) => {
+  //         pkmnAbilities.push(ability.ability.name);
+  //       });
+  //       this.response.moves.forEach((e: any) => {
+  //         pkmnMoves.push(e.move);
+  //       })
+  //       this.pkmnPreview = new PkmnPreview(
+  //         this.response.name,
+  //         pkmnTypes,
+  //         this.response.stats[0].base_stat,
+  //         this.response.stats[1].base_stat,
+  //         this.response.stats[2].base_stat,
+  //         this.response.stats[3].base_stat,
+  //         this.response.stats[4].base_stat,
+  //         this.response.stats[5].base_stat,
+  //         this.response.sprites.other.home.front_default,
+  //         this.battleSimulatorSrv.ownPkmn.value.name != '' ? (this.response.sprites.other.showdown.front_default ? this.response.sprites.other.showdown.front_default : this.response.sprites.front_default) : (this.response.sprites.other.showdown.back_default ? this.response.sprites.other.showdown.back_default : this.response.sprites.front_default),
+  //         pkmnAbilities,
+  //         pkmnMoves,
+  //         this.response.sprites.other.showdown.back_default ? this.response.sprites.other.showdown.back_default : this.response.sprites.front_default
+  //       );
+  //       dialogRef.close();
+  //     }
+  //   })
+  // }
 
   clearChoosenPkmn() {
     this.battleSimulatorSrv.setOwnPkmn(this.battleSimulatorSrv.emptyPkmnValue);
     this.battleSimulatorSrv.setEnemyPkmn(this.battleSimulatorSrv.emptyPkmnValue);
+  }
+
+  selectPkmn(pokemon: BattlePkmn) {
+    if (this.battleSimulatorSrv.ownPkmn.value.name == '') {
+      console.log(JSON.stringify(pokemon, null, 2));
+      this.battleSimulatorSrv.setOwnPkmn(pokemon)
+    } else {
+      this.battleSimulatorSrv.setEnemyPkmn(pokemon);
+    }
+  }
+
+  goToBattle() {
+    if (this.battleSimulatorSrv.ownPkmn.value.name != '' && this.battleSimulatorSrv.enemyPkmn.value.name != '') this.router.navigate(['/battle']);
+  }
+
+  ngOnDestroy() {
+    this.battleSimulatorSrv.ownPkmn$.subscribe().unsubscribe();
+    this.battleSimulatorSrv.enemyPkmn$.subscribe().unsubscribe();
   }
 
 }

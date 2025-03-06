@@ -19,7 +19,9 @@ export class BattleSimulatorService {
     0,
     0,
     [],
-    []
+    [],
+    '',
+    ''
   )
   ownPkmn: BehaviorSubject<BattlePkmn> = new BehaviorSubject<BattlePkmn>(this.emptyPkmnValue);
   enemyPkmn: BehaviorSubject<BattlePkmn> = new BehaviorSubject<BattlePkmn>(this.emptyPkmnValue);

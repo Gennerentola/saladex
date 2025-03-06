@@ -1,1 +1,109 @@
-<p>battle works!</p>,
+<main class="mx-auto p-3 row">
+  <div class="display col-12 col-lg-6">
+    <div class="battlefield d-flex flex-column justify-content-between">
+      <div class="d-flex justify-content-between w-100 enemyPkmnPosition">
+        <div class="enemyPkmnInfo" [ngClass]="{
+          'grass': enemyPkmn.types[0] == 'grass',
+          'fire': enemyPkmn.types[0] == 'fire',
+          'water': enemyPkmn.types[0] == 'water',
+          'normal': enemyPkmn.types[0] == 'normal',
+          'bug': enemyPkmn.types[0] == 'bug',
+          'poison': enemyPkmn.types[0] == 'poison',
+          'electric': enemyPkmn.types[0] == 'electric',
+          'ground': enemyPkmn.types[0] == 'ground',
+          'fairy': enemyPkmn.types[0] == 'fairy',
+          'fighting': enemyPkmn.types[0] == 'fighting',
+          'psychic': enemyPkmn.types[0] == 'psychic',
+          'rock': enemyPkmn.types[0] == 'rock',
+          'ghost': enemyPkmn.types[0] == 'ghost',
+          'ice': enemyPkmn.types[0] == 'ice',
+          'dragon': enemyPkmn.types[0] == 'dragon',
+          'flying': enemyPkmn.types[0] == 'flying',
+          'steel': enemyPkmn.types[0] == 'steel',
+          'dark': enemyPkmn.types[0] == 'dark'
+        }">
+          <div class="enemyInfoBox">
+            <p class="p-3 pb-1 pt-2 m-0">
+              {{enemyPkmn.name.toUpperCase()}}
+            </p>
+            <div class="progress mx-2" role="progressbar" aria-label="Basic example" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-success" [style.width]="calculateHp('ENEMY')"></div>
+            </div>
+          </div>
+        </div>
+        <img class="pt-3 pe-1 pt-lg-5 pe-lg-3 enemyPkmnSprite" [src]="enemyPkmn.enemySprite">
+      </div>
+      <div class="d-flex justify-content-between w-100 ownPkmnPosition">
+        <img class="pb-3 ps-1 pb-lg-5 ps-lg-3 ownPkmnSprite" [src]="ownPkmn.sprite">
+        <div class="ownPkmnInfo" [ngClass]="{
+          'grass': ownPkmn.types[0] == 'grass',
+          'fire': ownPkmn.types[0] == 'fire',
+          'water': ownPkmn.types[0] == 'water',
+          'normal': ownPkmn.types[0] == 'normal',
+          'bug': ownPkmn.types[0] == 'bug',
+          'poison': ownPkmn.types[0] == 'poison',
+          'electric': ownPkmn.types[0] == 'electric',
+          'ground': ownPkmn.types[0] == 'ground',
+          'fairy': ownPkmn.types[0] == 'fairy',
+          'fighting': ownPkmn.types[0] == 'fighting',
+          'psychic': ownPkmn.types[0] == 'psychic',
+          'rock': ownPkmn.types[0] == 'rock',
+          'ghost': ownPkmn.types[0] == 'ghost',
+          'ice': ownPkmn.types[0] == 'ice',
+          'dragon': ownPkmn.types[0] == 'dragon',
+          'flying': ownPkmn.types[0] == 'flying',
+          'steel': ownPkmn.types[0] == 'steel',
+          'dark': ownPkmn.types[0] == 'dark'
+        }">
+          <div class="ownInfoBox">
+            <p class="p-3 pb-1 pt-2 m-0">
+              {{ownPkmn.name.toUpperCase()}}
+            </p>
+            <div class="progress mx-2 mb-1" role="progressbar" aria-label="Basic example" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar bg-success" [style.width]="calculateHp('YOU')"></div>
+            </div>
+            <p class="pb-3 px-2 m-0 hp-font">{{ownPkmn.stats.hp}} / {{ownPkmnStartingHp}} HP</p>
+          </div>
+        </div>
+      </div>
+      <div
+        id="sphere"
+        [ngClass]="moveType"
+        class="move"
+        [@yourAttack]="yourAttackState" (@yourAttack.done)="onYourAttackAnimationDone($event)"
+        [@enemyAttack]="enemyAttackState" (@enemyAttack.done)="onEnemyAttackAnimationDone($event)"
+      ></div>
+    </div>
+    <div class="fightMenu mx-0 d-flex flex-column flex-lg-row justify-content-between">
+      <div *ngFor="let move of ownPkmn.moves; let i = index" class="moveContainer py-2 px-lg-2 w-100">
+        <div [ngClass]="{
+          'grass': move.type == 'grass',
+          'fire': move.type == 'fire',
+          'water': move.type == 'water',
+          'normal': move.type == 'normal',
+          'bug': move.type == 'bug',
+          'poison': move.type == 'poison',
+          'electric': move.type == 'electric',
+          'ground': move.type == 'ground',
+          'fairy': move.type == 'fairy',
+          'fighting': move.type == 'fighting',
+          'psychic': move.type == 'psychic',
+          'rock': move.type == 'rock',
+          'ghost': move.type == 'ghost',
+          'ice': move.type == 'ice',
+          'dragon': move.type == 'dragon',
+          'flying': move.type == 'flying',
+          'steel': move.type == 'steel',
+          'dark': move.type == 'dark'
+        }" class="d-flex flex-lg-column justify-content-lg-around justify-content-between align-items-center rounded moveParagraph" (click)="playTurn(move)">
+          <div class="p-2">{{move.name.toLocaleUpperCase()}}</div>
+          <div class="p-2 d-flex align-items-center"><p class="mb-0">POT: {{move.power}} | </p><img class="damageClassIcon"
+              [src]="imgAssetsPath + move.damageClass + imgExtension" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div #battleLogRef class="battleLog col-12 col-lg-6">
+    <!-- I LOG DELLA LOTTA VENGONO STAMPATI QUI -->
+  </div>
+</main>

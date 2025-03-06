@@ -1,0 +1,362 @@
+app-battle {
+  main {
+    width: 100%;
+    height: 95vh;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    @media screen and (min-width: 768px) {
+      width: 90vw;
+    }
+  }
+
+  .display,
+  .battlelog {
+    height: 95vh;
+  }
+
+  .battlefield {
+    background: rgb(218, 201, 160);
+    background: -moz-linear-gradient(0deg, rgba(218, 201, 160, 1) 60%, rgba(195, 218, 234, 1) 65%);
+    background: -webkit-linear-gradient(0deg, rgba(218, 201, 160, 1) 60%, rgba(195, 218, 234, 1) 65%);
+    background: linear-gradient(0deg, rgba(218, 201, 160, 1) 60%, rgba(195, 218, 234, 1) 65%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dac9a0", endColorstr="#c3daea", GradientType=1);
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    height: 40%;
+    overflow: hidden;
+    position: relative;
+
+    @media screen and (min-width: 768px) {
+      height: 75%;
+    }
+  }
+
+  .ownPkmnPosition {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .enemyPkmnPosition {
+    position: absolute;
+    bottom: 55%;
+  }
+
+  #sphere {
+    border-radius: 50%;
+    // height: 20%;
+    width: 20%;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+
+  .ownPkmnSprite {
+    scale: 1.2;
+
+    @media screen and (min-width: 768px) {
+      scale: 3;
+    }
+  }
+
+  .enemyPkmnSprite {
+    scale: 0.8;
+
+    @media screen and (min-width: 768px) {
+      scale: 2;
+    }
+  }
+
+  .fightMenu {
+
+    .moveContainer {
+      height: 70px;
+      @media screen and (min-width: 768px) {
+        height: 10vh;
+      }
+    }
+
+    .moveContainer:first-child {
+      padding-left: 0 !important;
+    }
+
+    .moveContainer:last-child {
+      padding-right: 0 !important;
+    }
+
+  }
+
+}
+
+.moveParagraph {
+  height: 100%;
+  cursor: pointer;
+}
+
+.damageClassIcon {
+  height: 25px;
+}
+
+.ownPkmnInfo,
+.ownInfoBox {
+  clip-path: xywh(0 5px 100% 75% round 15% 0);
+}
+
+.enemyPkmnInfo,
+.enemyInfoBox {
+  clip-path: xywh(0 5px 100% 75% round 0 15%);
+}
+
+.ownPkmnInfo,
+.enemyPkmnInfo {
+  width: 30%;
+}
+
+
+.enemyInfoBox,
+.ownInfoBox {
+  height: 95%;
+  width: 95%;
+  max-height: 150px;
+  background-color: #e8e8e8;
+  color: #000;
+}
+
+.hp-font {
+  font-size: 0.85rem;
+}
+
+.grass {
+  color: #fff;
+  background: linear-gradient(#66B660, #9de998);
+
+  &.move {
+    background: #66B660;
+    background: -moz-radial-gradient(circle, #66B660 30%, #9de998 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #66B660 30%, #9de998 50%, transparent 75%);
+    background: radial-gradient(circle, #66B660 30%, #9de998 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#66B660",endColorstr="#9de998",GradientType=1);
+  }
+}
+
+.fire {
+  color: #fff;
+  background: linear-gradient(#fd7e14, #ffa357);
+
+  &.move {
+    background: #fd7e14;
+    background: -moz-radial-gradient(circle, #fd7e14 30%, #ffa357 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #fd7e14 30%, #ffa357 50%, transparent 75%);
+    background: radial-gradient(circle, #fd7e14 30%, #ffa357 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fd7e14",endColorstr="#ffa357",GradientType=1);
+  }
+}
+
+.water {
+  color: #fff;
+  background: linear-gradient(#4791ff, #87b7ff);
+
+  &.move {
+    background: #4791ff;
+    background: -moz-radial-gradient(circle, #4791ff 30%, #87b7ff 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #4791ff 30%, #87b7ff 50%, transparent 75%);
+    background: radial-gradient(circle, #4791ff 30%, #87b7ff 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#4791ff",endColorstr="#87b7ff",GradientType=1);
+  }
+}
+
+.normal {
+  color: #fff;
+  background: linear-gradient(#adb5bd, #d7e1ec);
+
+  &.move {
+    background: #adb5bd;
+    background: -moz-radial-gradient(circle, #adb5bd 30%, #d7e1ec 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #adb5bd 30%, #d7e1ec 50%, transparent 75%);
+    background: radial-gradient(circle, #adb5bd 30%, #d7e1ec 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#adb5bd",endColorstr="#d7e1ec",GradientType=1);
+  }
+}
+
+.bug {
+  color: #fff;
+  background: linear-gradient(#8cb735, #c9ee7d);
+
+  &.move {
+    background: #8cb735;
+    background: -moz-radial-gradient(circle, #8cb735 30%, #c9ee7d 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #8cb735 30%, #c9ee7d 50%, transparent 75%);
+    background: radial-gradient(circle, #8cb735 30%, #c9ee7d 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8cb735",endColorstr="#c9ee7d",GradientType=1);
+  }
+}
+
+.poison {
+  color: #fff;
+  background: linear-gradient(#A96AC8, #d3a1eb);
+
+  &.move {
+    background: #A96AC8;
+    background: -moz-radial-gradient(circle, #A96AC8 30%, #d3a1eb 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #A96AC8 30%, #d3a1eb 50%, transparent 75%);
+    background: radial-gradient(circle, #A96AC8 30%, #d3a1eb 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#A96AC8",endColorstr="#d3a1eb",GradientType=1);
+  }
+}
+
+.electric {
+  color: #fff;
+  background: linear-gradient(#ffd34d, #ffe38e);
+
+  &.move {
+    background: #ffd34d;
+    background: -moz-radial-gradient(circle, #ffd34d 30%, #ffe38e 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #ffd34d 30%, #ffe38e 50%, transparent 75%);
+    background: radial-gradient(circle, #ffd34d 30%, #ffe38e 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffd34d",endColorstr="#ffe38e",GradientType=1);
+  }
+}
+
+.ground {
+  color: #fff;
+  background: linear-gradient(#D87844, #e9a580);
+
+  &.move {
+    background: #D87844;
+    background: -moz-radial-gradient(circle, #D87844 30%, #e9a580 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #D87844 30%, #e9a580 50%, transparent 75%);
+    background: radial-gradient(circle, #D87844 30%, #e9a580 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#D87844",endColorstr="#e9a580",GradientType=1);
+  }
+}
+
+.fairy {
+  color: #fff;
+  background: linear-gradient(#ff9fcf, #fac1dd);
+
+  &.move {
+    background: #ff9fcf;
+    background: -moz-radial-gradient(circle, #ff9fcf 30%, #fac1dd 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #ff9fcf 30%, #fac1dd 50%, transparent 75%);
+    background: radial-gradient(circle, #ff9fcf 30%, #fac1dd 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ff9fcf",endColorstr="#fac1dd",GradientType=1);
+  }
+}
+
+.fighting {
+  color: #fff;
+  background: linear-gradient(#c75a00, #e1a06b);
+
+  &.move {
+    background: #c75a00;
+    background: -moz-radial-gradient(circle, #c75a00 30%, #e1a06b 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #c75a00 30%, #e1a06b 50%, transparent 75%);
+    background: radial-gradient(circle, #c75a00 30%, #e1a06b 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c75a00",endColorstr="#e1a06b",GradientType=1);
+  }
+}
+
+.psychic {
+  color: #fff;
+  background: linear-gradient(#d63384, #ee85b9);
+
+  &.move {
+    background: #d63384;
+    background: -moz-radial-gradient(circle, #d63384 30%, #ee85b9 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #d63384 30%, #ee85b9 50%, transparent 75%);
+    background: radial-gradient(circle, #d63384 30%, #ee85b9 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d63384",endColorstr="#ee85b9",GradientType=1);
+  }
+}
+
+.rock {
+  color: #fff;
+  background: linear-gradient(#D1C6A3, #ffefc0);
+
+  &.move {
+    background: #D1C6A3;
+    background: -moz-radial-gradient(circle, #D1C6A3 30%, #ffefc0 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #D1C6A3 30%, #ffefc0 50%, transparent 75%);
+    background: radial-gradient(circle, #D1C6A3 30%, #ffefc0 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#D1C6A3",endColorstr="#ffefc0",GradientType=1);
+  }
+}
+
+.ghost {
+  color: #fff;
+  background: linear-gradient(#5569AD, #8e9fd8);
+
+  &.move {
+    background: #5569AD;
+    background: -moz-radial-gradient(circle, #5569AD 30%, #8e9fd8 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #5569AD 30%, #8e9fd8 50%, transparent 75%);
+    background: radial-gradient(circle, #5569AD 30%, #8e9fd8 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5569AD",endColorstr="#8e9fd8",GradientType=1);
+  }
+}
+
+.ice {
+  color: #fff;
+  background: linear-gradient(#73CEBF, #a3d1ca);
+
+  &.move {
+    background: #73CEBF;
+    background: -moz-radial-gradient(circle, #73CEBF 30%, #a3d1ca 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #73CEBF 30%, #a3d1ca 50%, transparent 75%);
+    background: radial-gradient(circle, #73CEBF 30%, #a3d1ca 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#73CEBF",endColorstr="#a3d1ca",GradientType=1);
+  }
+}
+
+.dragon {
+  color: #fff;
+  background: linear-gradient(#0F6FC3, #589cd8);
+
+  &.move {
+    background: #0F6FC3;
+    background: -moz-radial-gradient(circle, #0F6FC3 30%, #589cd8 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #0F6FC3 30%, #589cd8 50%, transparent 75%);
+    background: radial-gradient(circle, #0F6FC3 30%, #589cd8 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#73CEBF",endColorstr="#589cd8",GradientType=1);
+  }
+}
+
+.flying {
+  color: #fff;
+  background: linear-gradient(#8EA8DE, #c5d8ff);
+
+  &.move {
+    background: #8EA8DE;
+    background: -moz-radial-gradient(circle, #8EA8DE 30%, #c5d8ff 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #8EA8DE 30%, #c5d8ff 50%, transparent 75%);
+    background: radial-gradient(circle, #8EA8DE 30%, #c5d8ff 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8EA8DE",endColorstr="#c5d8ff",GradientType=1);
+  }
+}
+
+.steel {
+  color: #fff;
+  background: linear-gradient(#5A8DA1, #8fbacb);
+
+  &.move {
+    background: #5A8DA1;
+    background: -moz-radial-gradient(circle, #5A8DA1 30%, #8fbacb 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #5A8DA1 30%, #8fbacb 50%, transparent 75%);
+    background: radial-gradient(circle, #5A8DA1 30%, #8fbacb 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5A8DA1",endColorstr="#8fbacb",GradientType=1);
+  }
+}
+
+.dark {
+  color: #fff;
+  background: linear-gradient(#5A5365, #978ca9);
+
+  &.move {
+    background: #5A5365;
+    background: -moz-radial-gradient(circle, #5A5365 30%, #978ca9 50%, transparent 75%);
+    background: -webkit-radial-gradient(circle, #5A5365 30%, #978ca9 50%, transparent 75%);
+    background: radial-gradient(circle, #5A5365 30%, #978ca9 50%, transparent 75%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5A5365",endColorstr="#978ca9",GradientType=1);
+  }
+}

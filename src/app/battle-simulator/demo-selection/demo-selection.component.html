@@ -1,0 +1,54 @@
+<button [ngClass]="{
+    'ownChoice': pkmnToShow.name.toUpperCase() == ownPkmn.name.toUpperCase(),
+    'enemyChoice': pkmnToShow.name.toUpperCase() == enemyPkmn.name.toUpperCase()
+  }"
+  class="pokemonButton d-flex justify-content-around align-items-center py-3 w-100 btn btn-light" type="button">
+  <img class="pkmnSprite" [src]="pkmnToShow.previewSprite" alt="sprite del pokemon">
+  <div>
+    <p class="fs-3 text-center">{{pkmnToShow.name.toUpperCase()}}</p>
+    <p class="pt-2 text-center">
+      <span class="text-uppercase px-1 pb-1" [ngClass]="{
+      'grass': pkmnToShow.types[0] == 'grass',
+      'fire': pkmnToShow.types[0] == 'fire',
+      'water': pkmnToShow.types[0] == 'water',
+      'normal': pkmnToShow.types[0] == 'normal',
+      'bug': pkmnToShow.types[0] == 'bug',
+      'poison': pkmnToShow.types[0] == 'poison',
+      'electric': pkmnToShow.types[0] == 'electric',
+      'ground': pkmnToShow.types[0] == 'ground',
+      'fairy': pkmnToShow.types[0] == 'fairy',
+      'fighting': pkmnToShow.types[0] == 'fighting',
+      'psychic': pkmnToShow.types[0] == 'psychic',
+      'rock': pkmnToShow.types[0] == 'rock',
+      'ghost': pkmnToShow.types[0] == 'ghost',
+      'ice': pkmnToShow.types[0] == 'ice',
+      'dragon': pkmnToShow.types[0] == 'dragon',
+      'flying': pkmnToShow.types[0] == 'flying',
+      'steel': pkmnToShow.types[0] == 'steel',
+      'dark': pkmnToShow.types[0] == 'dark',
+      'rounded-start' : pkmnToShow.types[1],
+      'rounded' : !pkmnToShow.types[1]
+    }">{{pkmnToShow.types[0]}}</span>
+      <span class="text-uppercase px-1 pb-1 rounded-end" *ngIf="pkmnToShow.types[1]" [ngClass]="{
+      'grass': pkmnToShow.types[1] == 'grass',
+      'fire': pkmnToShow.types[1] == 'fire',
+      'water': pkmnToShow.types[1] == 'water',
+      'normal': pkmnToShow.types[1] == 'normal',
+      'bug': pkmnToShow.types[1] == 'bug',
+      'poison': pkmnToShow.types[1] == 'poison',
+      'electric': pkmnToShow.types[1] == 'electric',
+      'ground': pkmnToShow.types[1] == 'ground',
+      'fairy': pkmnToShow.types[1] == 'fairy',
+      'fighting': pkmnToShow.types[1] == 'fighting',
+      'psychic': pkmnToShow.types[1] == 'psychic',
+      'rock': pkmnToShow.types[1] == 'rock',
+      'ghost': pkmnToShow.types[1] == 'ghost',
+      'ice': pkmnToShow.types[1] == 'ice',
+      'dragon': pkmnToShow.types[1] == 'dragon',
+      'flying': pkmnToShow.types[1] == 'flying',
+      'steel': pkmnToShow.types[1] == 'steel',
+      'dark': pkmnToShow.types[1] == 'dark'
+    }">{{pkmnToShow.types[1]}}</span>
+    </p>
+  </div>
+</button>

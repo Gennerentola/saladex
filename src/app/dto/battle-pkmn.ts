@@ -14,7 +14,9 @@ export class BattlePkmn {
     speed: number;
   };
   abilities: string[];
-  moves?: Move[];
+  moves: Move[];
+  enemySprite: string;
+  previewSprite: string;
 
   constructor(
     _name: string,
@@ -27,7 +29,9 @@ export class BattlePkmn {
     _spDefense: number,
     _speed: number,
     _abilities: string[],
-    _moves: Move[]
+    _moves: Move[],
+    _enemySprite: string,
+    _previewSprite: string,
   ) {
     this.name = _name;
     this.sprite = _sprite;
@@ -42,6 +46,8 @@ export class BattlePkmn {
     };
     this.abilities = _abilities;
     this.moves = _moves;
+    this.enemySprite = _enemySprite;
+    this.previewSprite = _previewSprite;
   }
 
   findRelations(): string[][] {
@@ -51,7 +57,7 @@ export class BattlePkmn {
     let immunities: string[] = [];
 
     if (this.types[0] == "normal" || this.types[1] == "normal") {
-      weaknesses.push("fight");
+      weaknesses.push("fighting");
       immunities.push("ghost");
     }
     if (this.types[0] == "fire" || this.types[1] == "fire") {
@@ -85,7 +91,7 @@ export class BattlePkmn {
       weaknesses.push("rock");
       weaknesses.push("electric");
       weaknesses.push("ice");
-      resistances.push("fight");
+      resistances.push("fighting");
       resistances.push("bug");
       resistances.push("grass");
       immunities.push("ground");
@@ -104,7 +110,7 @@ export class BattlePkmn {
     if (this.types[0] == "poison" || this.types[1] == "poison") {
       weaknesses.push("ground");
       weaknesses.push("psychic");
-      resistances.push("fight");
+      resistances.push("fighting");
       resistances.push("poison");
       resistances.push("bug");
       resistances.push("grass");
@@ -129,12 +135,12 @@ export class BattlePkmn {
       weaknesses.push("ghost");
       weaknesses.push("bug");
       weaknesses.push("dark");
-      resistances.push("fight");
+      resistances.push("fighting");
       resistances.push("psychic");
     }
     if (this.types[0] == "rock" || this.types[1] == "rock") {
       weaknesses.push("ground");
-      weaknesses.push("fight");
+      weaknesses.push("fighting");
       weaknesses.push("water");
       weaknesses.push("steel");
       weaknesses.push("grass");
@@ -146,7 +152,7 @@ export class BattlePkmn {
     if (this.types[0] == "ice" || this.types[1] == "ice") {
       weaknesses.push("rock");
       weaknesses.push("steel");
-      weaknesses.push("fight");
+      weaknesses.push("fighting");
       weaknesses.push("fire");
       resistances.push("ice");
     }
@@ -154,7 +160,7 @@ export class BattlePkmn {
       weaknesses.push("flying");
       weaknesses.push("rock");
       weaknesses.push("fire");
-      resistances.push("fight");
+      resistances.push("fighting");
       resistances.push("ground");
       resistances.push("grass");
     }
@@ -172,11 +178,11 @@ export class BattlePkmn {
       weaknesses.push("dark");
       resistances.push("bug");
       resistances.push("poison");
-      immunities.push("fight");
+      immunities.push("fighting");
       immunities.push("normal");
     }
     if (this.types[0] == "dark" || this.types[1] == "dark") {
-      weaknesses.push("fight");
+      weaknesses.push("fighting");
       weaknesses.push("bug");
       weaknesses.push("fairy");
       resistances.push("ghost");
@@ -186,7 +192,7 @@ export class BattlePkmn {
     if (this.types[0] == "steel" || this.types[1] == "steel") {
       weaknesses.push("ground");
       weaknesses.push("fire");
-      weaknesses.push("fight");
+      weaknesses.push("fighting");
       resistances.push("normal");
       resistances.push("flying");
       resistances.push("rock");
@@ -202,7 +208,7 @@ export class BattlePkmn {
     if (this.types[0] == "fairy" || this.types[1] == "fairy") {
       weaknesses.push("poison");
       weaknesses.push("steel");
-      resistances.push("fight");
+      resistances.push("fighting");
       resistances.push("dark");
       resistances.push("bug");
       immunities.push("dragon");

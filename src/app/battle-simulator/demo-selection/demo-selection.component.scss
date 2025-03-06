@@ -1,0 +1,131 @@
+app-demo-selection {
+  p {
+    margin: 0;
+  }
+
+  .pokemonButton {
+    width: 250px;
+    border-radius: 6px;
+
+
+  }
+
+  .ownChoice {
+    border: 5px solid #0199AD;
+  }
+
+  .enemyChoice {
+    border: 5px solid #BA004F;
+  }
+
+  .pkmnSprite {
+    animation: 0.3s infinite bouncingPkmn;
+    -webkit-animation: 0.3s infinite bouncingPkmn;
+  }
+
+  .grass {
+    color: #fff;
+    background: linear-gradient(#66B660, #9de998);
+  }
+
+  .fire {
+    color: #fff;
+    background: linear-gradient(#fd7e14, #ffa357);
+  }
+
+  .water {
+    color: #fff;
+    background: linear-gradient(#4791ff, #87b7ff);
+  }
+
+  .normal {
+    color: #fff;
+    background: linear-gradient(#adb5bd, #d7e1ec);
+  }
+
+  .bug {
+    color: #fff;
+    background: linear-gradient(#8cb735, #c9ee7d);
+  }
+
+  .poison {
+    color: #fff;
+    background: linear-gradient(#A96AC8, #d3a1eb);
+  }
+
+  .electric {
+    color: #fff;
+    background: linear-gradient(#ffd34d, #ffe38e);
+  }
+
+  .ground {
+    color: #fff;
+    background: linear-gradient(#D87844, #e9a580);
+  }
+
+  .fairy {
+    color: #fff;
+    background: linear-gradient(#ff9fcf, #fac1dd);
+  }
+
+  .fighting {
+    color: #fff;
+    background: linear-gradient(#c75a00, #e1a06b);
+  }
+
+  .psychic {
+    color: #fff;
+    background: linear-gradient(#d63384, #ee85b9);
+  }
+
+  .rock {
+    color: #fff;
+    background: linear-gradient(#D1C6A3, #ffefc0);
+  }
+
+  .ghost {
+    color: #fff;
+    background: linear-gradient(#5569AD, #8e9fd8);
+  }
+
+  .ice {
+    color: #fff;
+    background: linear-gradient(#73CEBF, #a3d1ca);
+  }
+
+  .dragon {
+    color: #fff;
+    background: linear-gradient(#0F6FC3, #589cd8);
+  }
+
+  .flying {
+    color: #fff;
+    background: linear-gradient(#8EA8DE, #c5d8ff);
+  }
+
+  .steel {
+    color: #fff;
+    background: linear-gradient(#5A8DA1, #8fbacb);
+  }
+
+  .dark {
+    color: #fff;
+    background: linear-gradient(#5A5365, #978ca9);
+  }
+
+  @keyframes bouncingPkmn {
+    from {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
+    }
+
+    to {
+      transform: translateY(0);
+    }
+  }
+
+
+}

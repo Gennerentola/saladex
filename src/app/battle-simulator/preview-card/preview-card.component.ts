@@ -7,6 +7,7 @@ import { LoadingFeedbackModalComponent } from 'src/app/loading-feedback-modal/lo
 import { MatDialog } from '@angular/material/dialog';
 import { BattlePkmn } from 'src/app/dto/battle-pkmn';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-preview-card',
@@ -63,7 +64,14 @@ export class PreviewCardComponent {
       this.battleSimulatorSrv.getMove(move.url).subscribe({
         next: (res: any) => {
           if (res.damage_class.name == 'status') {
-            window.alert('Mi dispiace, non è ancora possibile utilizzare mosse di stato... Seleziona un\' altra mossa!')
+            Swal.fire({
+              title: "Non è ancora possibile utilizzare mosse di stato",
+              text: "Seleziona un\' altra mossa!",
+              icon: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#00A0B6",
+              confirmButtonText: "OK",
+            })
           } else {
             let moveToAdd: Move = {
               name: res.name.replace('-', ' '),
@@ -72,11 +80,11 @@ export class PreviewCardComponent {
               damageClass: res.damage_class.name,
               statChanges: res.stat_changes,
               priority: res.priority,
-              minHits: res.meta.min_hits,
-              maxHits: res.meta.max_hits,
-              drain: res.meta.drain,
+              minHits: res.meta ? res.meta.min_hits : null,
+              maxHits: res.meta ? res.meta.max_hits : null,
+              drain: res.meta ? res.meta.drain : null,
               effectChance: res.effect_chance,
-              effectDescription: res.effect_entries[0].short_effect
+              effectDescription: res.effect_entries[0] ? res.effect_entries[0].short_effect : null
             };
             if (this.movesPreview.length == 4) {
               this.movesPreview.pop();
@@ -101,44 +109,64 @@ export class PreviewCardComponent {
   }
 
   savePokemon() {
-    if (this.pokemon) {
-      let readyPkmn = new BattlePkmn(
-        this.pokemon.name,
-        this.pokemon.sprites.battleSprite,
-        this.pokemon.types,
-        this.pokemon.baseStats.hp,
-        this.pokemon.baseStats.attack,
-        this.pokemon.baseStats.defense,
-        this.pokemon.baseStats.spAttack,
-        this.pokemon.baseStats.spDefense,
-        this.pokemon.baseStats.speed,
-        this.pokemon.abilities,
-        this.movesPreview
-      );
-      if (this.battleSimulatorSrv.ownPkmn.value.name == '') {
-        this.battleSimulatorSrv.setOwnPkmn(readyPkmn)
-        this.pokemon = new BattlePkmn(
-          '',
-          '',
-          [],
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          [],
-          []
-        )
-        this.choosenMovesNames = [];
-        this.movesPreview = [];
-      } else {
-        this.battleSimulatorSrv.setEnemyPkmn(readyPkmn);
+    if (this.movesPreview.length > 0) {
+      if (this.pokemon) {
+        let readyPkmn = new BattlePkmn(
+          this.pokemon.name,
+          this.pokemon.sprites.battleSprite,
+          this.pokemon.types,
+          this.pokemon.baseStats.hp,
+          this.pokemon.baseStats.attack,
+          this.pokemon.baseStats.defense,
+          this.pokemon.baseStats.spAttack,
+          this.pokemon.baseStats.spDefense,
+          this.pokemon.baseStats.speed,
+          this.pokemon.abilities,
+          this.movesPreview,
+          this.pokemon.sprites.enemySprite,
+          this.pokemon.sprites.previewSprite
+        );
+        if (this.battleSimulatorSrv.ownPkmn.value.name == '') {
+          console.log(JSON.stringify(readyPkmn, null, 2));
+          this.battleSimulatorSrv.setOwnPkmn(readyPkmn)
+          this.pokemon = new BattlePkmn(
+            '',
+            '',
+            [],
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            [],
+            [],
+            '',
+            ''
+          )
+          this.choosenMovesNames = [];
+          this.movesPreview = [];
+        } else {
+          this.battleSimulatorSrv.setEnemyPkmn(readyPkmn);
+        }
       }
+    } else {
+      Swal.fire({
+        title: "Seleziona almeno una mossa per continuare",
+        icon: "error",
+        showCancelButton: false,
+        confirmButtonColor: "#00A0B6",
+        confirmButtonText: "OK",
+      })
     }
   }
 
   goToBattle() {
     this.router.navigate(['/battle']);
+  }
+
+  ngOnDestroy() {
+    this.battleSimulatorSrv.ownPkmn$.subscribe().unsubscribe();
+    this.battleSimulatorSrv.enemyPkmn$.subscribe().unsubscribe();
   }
 }
