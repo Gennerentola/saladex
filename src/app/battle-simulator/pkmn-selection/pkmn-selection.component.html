@@ -20,15 +20,15 @@
       (click)="clearChoosenPkmn()">HAI SCELTO {{ownPkmn.name.toLocaleUpperCase()}} <br> CAMBIA</button>
   </div>
   <app-preview-card *ngIf="pkmnPreview" [pokemon]="pkmnPreview"></app-preview-card> -->
-  <div class="container">
-    <div class="row">
-      <app-demo-selection class="col-12 col-md-4 mb-3" *ngFor="let rentPkmn of rentalPkmn"  [pkmnToShow]="rentPkmn" (click)="selectPkmn(rentPkmn)"></app-demo-selection>
-    </div>
+  <div class="container-lg">
     <div class="w-100 d-flex justify-content-evenly">
       <button [disabled]="ownPkmn?.name == ''" class="btn btn-light my-3" type="button"
       (click)="clearChoosenPkmn()">RESET</button>
       <button [disabled]="enemyPkmn?.name == ''"class="btn btn-light my-3" type="button"
       (click)="goToBattle()">VAI ALLA LOTTA</button>
+    </div>
+    <div class="row">
+      <app-demo-selection class="col-12 col-md-4 mb-3" *ngFor="let rentPkmn of rentalPkmn"  [pkmnToShow]="rentPkmn" (click)="selectPkmn(rentPkmn)"></app-demo-selection>
     </div>
   </div>
 </main>

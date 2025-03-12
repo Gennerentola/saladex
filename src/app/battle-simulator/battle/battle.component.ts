@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { BattlePkmn } from 'src/app/dto/battle-pkmn';
 import { Move } from 'src/app/dto/move.interface';
@@ -34,8 +34,10 @@ export class BattleComponent {
   turnOrder: any;
   pendingMove: any;
   moveType: string = '';
+  turn: number = 0;
+  isTurnPlaying: boolean = false;
 
-  constructor(private battleSimulatorSrv: BattleSimulatorService, private router: Router) { }
+  constructor(private battleSimulatorSrv: BattleSimulatorService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.battleSimulatorSrv.ownPkmn$.subscribe(pkmn => {
@@ -84,6 +86,12 @@ export class BattleComponent {
   }
 
   playTurn(move: Move) {
+    this.isTurnPlaying = true;
+    this.turn++
+    let turnCounter = document.createElement('p');
+    turnCounter.classList.add('fw-bold');
+    turnCounter.innerText = `Turno ${this.turn}`;
+    this.battleLog.nativeElement.appendChild(turnCounter);
     let enemyMoveIndex = Math.floor(Math.random() * this.enemyPkmn.moves.length);
     let dmgDone = this.calculateDamage(move, this.ownPkmn, this.enemyPkmn);
     let dmgReceived = this.calculateDamage(this.enemyPkmn.moves[enemyMoveIndex], this.enemyPkmn, this.ownPkmn);
@@ -132,13 +140,13 @@ export class BattleComponent {
   }
 
   resetGame() {
+    this.turn = 0;
+    this.ownPkmn.stats.hp = this.ownPkmnStartingHp;
+    this.enemyPkmn.stats.hp = this.enemyPkmnStartingHp;
     while (this.battleLog.nativeElement.firstChild) {
       this.battleLog.nativeElement.removeChild(this.battleLog.nativeElement.firstChild);
     }
-    this.ownPkmn.stats.hp += 1;
-    this.ownPkmn.stats.hp -= 1;
-    this.enemyPkmn.stats.hp += 1;
-    this.enemyPkmn.stats.hp -= 1;
+    this.cdr.detectChanges();
   }
 
   calculateHp(pkmn: string) {
@@ -164,6 +172,7 @@ export class BattleComponent {
       this.battleLog.nativeElement.appendChild(ownMoveLog);
 
       if (this.enemyPkmn.stats.hp <= 0) {
+        this.isTurnPlaying = false;
         this.enemyPkmn.stats.hp = 0;
         Swal.fire({
           title: "Hai vinto!",
@@ -176,8 +185,6 @@ export class BattleComponent {
           cancelButtonText: "Vai alla scelta dei Pokémon",
         }).then((result) => {
           if (result.isConfirmed) {
-            this.ownPkmn.stats.hp = this.ownPkmnStartingHp;
-            this.enemyPkmn.stats.hp = this.enemyPkmnStartingHp;
             this.resetGame()
           } else {
             this.router.navigate(['/pkmn-selection']);
@@ -186,6 +193,8 @@ export class BattleComponent {
       } else if (this.turnOrder === 'faster') {
         this.moveType = enemyMove.type;
         this.enemyAttackState = 'start';
+      } else {
+        this.isTurnPlaying = false;
       }
     }
   }
@@ -205,6 +214,7 @@ export class BattleComponent {
       this.battleLog.nativeElement.appendChild(enemyMoveLog);
 
       if (this.ownPkmn.stats.hp <= 0) {
+        this.isTurnPlaying = false;
         this.ownPkmn.stats.hp = 0;
         Swal.fire({
           title: "Hai perso...",
@@ -217,8 +227,6 @@ export class BattleComponent {
           cancelButtonText: "Vai alla scelta dei Pokémon",
         }).then((result) => {
           if (result.isConfirmed) {
-            this.ownPkmn.stats.hp = this.ownPkmnStartingHp;
-            this.enemyPkmn.stats.hp = this.enemyPkmnStartingHp;
             this.resetGame()
           } else {
             this.router.navigate(['/pkmn-selection']);
@@ -227,6 +235,8 @@ export class BattleComponent {
       } else if (this.turnOrder === 'slower') {
         this.moveType = yourMove.type;
         this.yourAttackState = 'start';
+      } else {
+        this.isTurnPlaying = false;
       }
     }
   }

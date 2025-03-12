@@ -1,4 +1,4 @@
-<main class="mx-auto p-3 row">
+<main class="mx-auto p-3 h-auto row">
   <div class="display col-12 col-lg-6">
     <div class="battlefield d-flex flex-column justify-content-between">
       <div class="d-flex justify-content-between w-100 enemyPkmnPosition">
@@ -74,7 +74,7 @@
         [@enemyAttack]="enemyAttackState" (@enemyAttack.done)="onEnemyAttackAnimationDone($event)"
       ></div>
     </div>
-    <div class="fightMenu mx-0 d-flex flex-column flex-lg-row justify-content-between">
+    <div class="fightMenu mx-0 d-flex flex-column flex-lg-row justify-content-between" *ngIf="!isTurnPlaying; else movePlaceholder">
       <div *ngFor="let move of ownPkmn.moves; let i = index" class="moveContainer py-2 px-lg-2 w-100">
         <div [ngClass]="{
           'grass': move.type == 'grass',
@@ -107,3 +107,6 @@
     <!-- I LOG DELLA LOTTA VENGONO STAMPATI QUI -->
   </div>
 </main>
+<ng-template #movePlaceholder>
+  <p class="fst-italic fs-1 text-center fw-light">Turno {{this.turn}} in corso!</p>
+</ng-template>
