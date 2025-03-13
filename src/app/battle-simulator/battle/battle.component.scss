@@ -11,7 +11,18 @@ app-battle {
 
   .display,
   .battlelog {
-    height: 95vh;
+
+    @media screen and (min-width: 992px) {
+      min-height: 80vh;
+    }
+  }
+
+  .display {
+    height: fit-content;
+    @media screen and (min-width: 992px) {
+      width: 46%;
+      height: auto;
+    }
   }
 
   .battlefield {
@@ -21,7 +32,7 @@ app-battle {
     background: linear-gradient(0deg, rgba(218, 201, 160, 1) 60%, rgba(195, 218, 234, 1) 65%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#dac9a0", endColorstr="#c3daea", GradientType=1);
     border: 3px solid rgba(0, 0, 0, 0.3);
-    height: 40%;
+    min-height: 265px;
     overflow: hidden;
     position: relative;
 
@@ -37,7 +48,11 @@ app-battle {
 
   .enemyPkmnPosition {
     position: absolute;
-    bottom: 55%;
+    bottom: 48%;
+
+    @media screen and (min-width: 992px) {
+      bottom: 55%;
+    }
   }
 
   #sphere {
@@ -54,7 +69,7 @@ app-battle {
   .ownPkmnSprite {
     scale: 1.2;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 992px) {
       scale: 3;
     }
   }
@@ -62,7 +77,7 @@ app-battle {
   .enemyPkmnSprite {
     scale: 0.8;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 992px) {
       scale: 2;
     }
   }
@@ -75,19 +90,13 @@ app-battle {
           font-size: clamp(12px, 2vw, 16px);
         }
       }
-
-      height: 70px;
-
-      @media screen and (min-width: 768px) {
-        height: 10vh;
-      }
     }
 
-    .moveContainer:first-child {
+    .moveContainer:nth-child(odd) {
       padding-left: 0 !important;
     }
 
-    .moveContainer:last-child {
+    .moveContainer:nth-child(even) {
       padding-right: 0 !important;
     }
 
@@ -100,6 +109,12 @@ app-battle {
 
   .damageClassIcon {
     height: 25px;
+  }
+
+  .ownPkmnInfo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 
   .ownPkmnInfo,

@@ -108,6 +108,9 @@ export class BattleComponent {
     this.turnOrder = 'faster';
     this.pendingMove = { dmgDone, dmgReceived, yourMove, enemyMove };
     this.moveType = yourMove.type;
+    let moveLog = document.createElement('p');
+    moveLog.innerText = `${this.ownPkmn.name} ha usato ${yourMove.name}!`;
+    this.battleLog.nativeElement.appendChild(moveLog);
     this.yourAttackState = 'start'; // Inizia l'animazione dell'attacco
   }
 
@@ -115,6 +118,9 @@ export class BattleComponent {
     this.turnOrder = 'slower';
     this.pendingMove = { dmgDone, dmgReceived, yourMove, enemyMove };
     this.moveType = enemyMove.type;
+    let moveLog = document.createElement('p');
+    moveLog.innerText = `${this.enemyPkmn.name} nemico ha usato ${enemyMove.name}!`;
+    this.battleLog.nativeElement.appendChild(moveLog);
     this.enemyAttackState = 'start'; // Inizia l'attacco nemico per primo
   }
 
@@ -166,10 +172,10 @@ export class BattleComponent {
       this.yourAttackState = 'default';
 
       const { dmgDone, yourMove, enemyMove } = this.pendingMove;
-      let ownMoveLog = document.createElement('p');
+      let moveLog = document.createElement('p');
       this.enemyPkmn.stats.hp -= dmgDone;
-      ownMoveLog.innerText = `${this.ownPkmn.name} ha usato ${yourMove.name}, ${this.enemyPkmn.name} nemico ha perso ${dmgDone} HP!`;
-      this.battleLog.nativeElement.appendChild(ownMoveLog);
+      moveLog.innerText = `${this.enemyPkmn.name} nemico ha perso ${dmgDone} HP!`;
+      this.battleLog.nativeElement.appendChild(moveLog);
 
       if (this.enemyPkmn.stats.hp <= 0) {
         this.isTurnPlaying = false;
@@ -191,6 +197,9 @@ export class BattleComponent {
           }
         });
       } else if (this.turnOrder === 'faster') {
+        let nextMoveLog = document.createElement('p')
+        nextMoveLog.innerText = `${this.enemyPkmn.name} nemico ha usato ${enemyMove.name}!`
+        this.battleLog.nativeElement.appendChild(nextMoveLog);
         this.moveType = enemyMove.type;
         this.enemyAttackState = 'start';
       } else {
@@ -208,10 +217,10 @@ export class BattleComponent {
       this.enemyAttackState = 'default';
 
       const { dmgReceived, yourMove, enemyMove } = this.pendingMove;
-      let enemyMoveLog = document.createElement('p');
+      let moveLog = document.createElement('p');
       this.ownPkmn.stats.hp -= dmgReceived;
-      enemyMoveLog.innerText = `${this.enemyPkmn.name} nemico ha usato ${enemyMove.name}, ${this.ownPkmn.name} ha perso ${dmgReceived} HP!`;
-      this.battleLog.nativeElement.appendChild(enemyMoveLog);
+      moveLog.innerText = `${this.ownPkmn.name} ha perso ${dmgReceived} HP!`;
+      this.battleLog.nativeElement.appendChild(moveLog);
 
       if (this.ownPkmn.stats.hp <= 0) {
         this.isTurnPlaying = false;
@@ -233,6 +242,9 @@ export class BattleComponent {
           }
         });
       } else if (this.turnOrder === 'slower') {
+        let nextMoveLog = document.createElement('p')
+        nextMoveLog.innerText = `${this.ownPkmn.name} ha usato ${yourMove.name}!`
+        this.battleLog.nativeElement.appendChild(nextMoveLog);
         this.moveType = yourMove.type;
         this.yourAttackState = 'start';
       } else {

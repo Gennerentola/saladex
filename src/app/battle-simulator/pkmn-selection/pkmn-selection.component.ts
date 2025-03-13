@@ -35,7 +35,7 @@ import { rentalPkmn } from 'src/assets/demo-files/demo-pkmn';
     MatDialogModule,
     PreviewCardComponent,
     DemoSelectionComponent
-],
+  ],
   templateUrl: './pkmn-selection.component.html',
   styleUrls: ['./pkmn-selection.component.scss'],
 })
@@ -50,7 +50,7 @@ export class PkmnSelectionComponent {
   response: any;
   rentalPkmn: BattlePkmn[] = rentalPkmn
 
-  constructor(private pokedexSrv: PokedexService, private dialog: MatDialog, private battleSimulatorSrv: BattleSimulatorService, private router: Router) {}
+  constructor(private pokedexSrv: PokedexService, private dialog: MatDialog, private battleSimulatorSrv: BattleSimulatorService, private router: Router) { }
 
   ngOnInit() {
     // const dialogRef = this.dialog.open(LoadingFeedbackModalComponent);
@@ -151,12 +151,25 @@ export class PkmnSelectionComponent {
   }
 
   selectPkmn(pokemon: BattlePkmn) {
-    if (this.battleSimulatorSrv.ownPkmn.value.name == '') {
-      console.log(JSON.stringify(pokemon, null, 2));
-      this.battleSimulatorSrv.setOwnPkmn(pokemon)
-    } else {
-      this.battleSimulatorSrv.setEnemyPkmn(pokemon);
-    }
+    this.battleSimulatorSrv.setOwnPkmn(pokemon);
+    Swal.fire({
+      title: `Hai scelto ${pokemon.name}`,
+      text: "Il pokemon avversario verrà scelto casualmente fra gli altri",
+      iconHtml: `<img src=${pokemon.previewSprite} alt="sprite di ${pokemon.name}">`,
+      showCancelButton: true,
+      confirmButtonColor: "#00A0B6",
+      cancelButtonColor: "#BA004F",
+      confirmButtonText: "Vai alla lotta",
+      cancelButtonText: "Annulla",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let selectablePkmn = rentalPkmn.filter(pkmn => pkmn.name !== pokemon.name);
+        this.battleSimulatorSrv.setEnemyPkmn(selectablePkmn[Math.floor(Math.random() * selectablePkmn.length)]);
+        this.goToBattle()
+      } else {
+        this.clearChoosenPkmn();
+      }
+    });
   }
 
   goToBattle() {

@@ -26,7 +26,8 @@
             <p class="p-3 pb-1 pt-2 m-0">
               {{enemyPkmn.name.toUpperCase()}}
             </p>
-            <div class="progress mx-2" role="progressbar" aria-label="Basic example" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress mx-2" role="progressbar" aria-label="Basic example" aria-valuenow="2" aria-valuemin="0"
+              aria-valuemax="100">
               <div class="progress-bar bg-success" [style.width]="calculateHp('ENEMY')"></div>
             </div>
           </div>
@@ -59,51 +60,55 @@
             <p class="p-3 pb-1 pt-2 m-0">
               {{ownPkmn.name.toUpperCase()}}
             </p>
-            <div class="progress mx-2 mb-1" role="progressbar" aria-label="Basic example" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress mx-2 mb-1" role="progressbar" aria-label="Basic example" aria-valuenow="2"
+              aria-valuemin="0" aria-valuemax="100">
               <div class="progress-bar bg-success" [style.width]="calculateHp('YOU')"></div>
             </div>
             <p class="pb-3 px-2 m-0 hp-font">{{ownPkmn.stats.hp}} / {{ownPkmnStartingHp}} HP</p>
           </div>
         </div>
       </div>
-      <div
-        id="sphere"
-        [ngClass]="moveType"
-        class="move"
-        [@yourAttack]="yourAttackState" (@yourAttack.done)="onYourAttackAnimationDone($event)"
-        [@enemyAttack]="enemyAttackState" (@enemyAttack.done)="onEnemyAttackAnimationDone($event)"
-      ></div>
+      <div id="sphere" [ngClass]="moveType" class="move" [@yourAttack]="yourAttackState"
+        (@yourAttack.done)="onYourAttackAnimationDone($event)" [@enemyAttack]="enemyAttackState"
+        (@enemyAttack.done)="onEnemyAttackAnimationDone($event)"></div>
     </div>
-    <div class="fightMenu mx-0 d-flex flex-column flex-lg-row justify-content-between" *ngIf="!isTurnPlaying; else movePlaceholder">
-      <div *ngFor="let move of ownPkmn.moves; let i = index" class="moveContainer py-2 px-lg-2 w-100">
-        <div [ngClass]="{
-          'grass': move.type == 'grass',
-          'fire': move.type == 'fire',
-          'water': move.type == 'water',
-          'normal': move.type == 'normal',
-          'bug': move.type == 'bug',
-          'poison': move.type == 'poison',
-          'electric': move.type == 'electric',
-          'ground': move.type == 'ground',
-          'fairy': move.type == 'fairy',
-          'fighting': move.type == 'fighting',
-          'psychic': move.type == 'psychic',
-          'rock': move.type == 'rock',
-          'ghost': move.type == 'ghost',
-          'ice': move.type == 'ice',
-          'dragon': move.type == 'dragon',
-          'flying': move.type == 'flying',
-          'steel': move.type == 'steel',
-          'dark': move.type == 'dark'
-        }" class="d-flex flex-lg-column justify-content-lg-around justify-content-between align-items-center rounded moveParagraph" (click)="playTurn(move)">
-          <div class="p-2">{{move.name.toLocaleUpperCase()}}</div>
-          <div class="p-2 d-flex align-items-center"><p class="mb-0">POT: {{move.power}} | </p><img class="damageClassIcon"
-              [src]="imgAssetsPath + move.damageClass + imgExtension" alt=""></div>
+    <div class="fightMenu mx-0 d-flex flex-column flex-md-row justify-content-between"
+      *ngIf="!isTurnPlaying; else movePlaceholder">
+      <div class="d-flex flex-wrap justify-content-center w-100">
+        <div *ngFor="let move of ownPkmn.moves; let i = index"
+          class="moveContainer py-2 px-md-2 col-12 col-md-6 d-flex">
+          <div [ngClass]="{
+            'grass': move.type == 'grass',
+            'fire': move.type == 'fire',
+            'water': move.type == 'water',
+            'normal': move.type == 'normal',
+            'bug': move.type == 'bug',
+            'poison': move.type == 'poison',
+            'electric': move.type == 'electric',
+            'ground': move.type == 'ground',
+            'fairy': move.type == 'fairy',
+            'fighting': move.type == 'fighting',
+            'psychic': move.type == 'psychic',
+            'rock': move.type == 'rock',
+            'ghost': move.type == 'ghost',
+            'ice': move.type == 'ice',
+            'dragon': move.type == 'dragon',
+            'flying': move.type == 'flying',
+            'steel': move.type == 'steel',
+            'dark': move.type == 'dark'
+          }" class="d-flex flex-column justify-content-between align-items-center rounded moveParagraph w-100 h-100" (click)="playTurn(move)">
+            <div class="p-2 text-center">{{move.name.toLocaleUpperCase()}}</div>
+            <div class="p-2 d-flex align-items-center">
+              <p class="mb-0">POT: {{move.power}} | </p>
+              <img class="damageClassIcon" [src]="imgAssetsPath + move.damageClass + imgExtension" alt="">
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div #battleLogRef class="battleLog col-12 col-lg-6">
+    <p class="fs-3">Log della battaglia:</p>
     <!-- I LOG DELLA LOTTA VENGONO STAMPATI QUI -->
   </div>
 </main>

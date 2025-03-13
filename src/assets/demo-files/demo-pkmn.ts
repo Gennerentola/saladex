@@ -263,7 +263,7 @@ const demoPkmn = [
       },
       {
         name: "dragartigli",
-        power: 90,
+        power: 80,
         type: "dragon",
         damageClass: "physical",
         statChanges: [],

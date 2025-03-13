@@ -1,7 +1,4 @@
-<button [ngClass]="{
-    'ownChoice': pkmnToShow.name.toUpperCase() == ownPkmn.name.toUpperCase(),
-    'enemyChoice': pkmnToShow.name.toUpperCase() == enemyPkmn.name.toUpperCase()
-  }"
+<button
   class="pokemonButton d-flex justify-content-around align-items-center py-3 w-100 btn btn-light" type="button">
   <img class="pkmnSprite" [src]="pkmnToShow.previewSprite" alt="sprite del pokemon">
   <div>
