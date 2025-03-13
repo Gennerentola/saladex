@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "saladex",
     "public": "dist/saladex",
     "ignore": [
       "firebase.json",

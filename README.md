@@ -37,3 +37,7 @@ Tramite la card "Cerca un pokemon" della homepage è possibile avere accesso ad 
 ## Confronta 🐺👊🐗
 
 Tramite la card "Confronta" o il bottone nella card del pokedex "CONFRONTA POKEMON" si accede alla sezione di confronto del pokemon dove sono presenti due searchbar con due selettori per poter selezionare due pokemon. Una volta selezionati premendo il bottone "VS" verrà effettuato il confronto fra i due pokemon. La view di confronto presenta un grafico che sovrappone le statistiche base dei due pokemon per permettere un confronto facile ed immediato delle singole statistiche di base ed alcune informazioni sottostanti riguardo al confronto dei tipi dei due pokemon ed al confronto della somma delle statistiche di base.
+
+## Battle Simulator 🦇💥🦖
+
+Tramite la card "Battle Simulator" della homepage è possibile accedere al battle simulator, attualmente ancora in demo. È possibile scegliere fra nove pokemon per poter combattere contro uno degli altri 8 scelto casualmente dalla CPU. Dopo la scelta del nostro pokemon ci ritroviamo nella schermata di gioco dove avremo a disposizione quattro mosse da poter sferrare ed un log che tiene traccia delle azioni turno per turno. Alla fine del combattimento una modale ci permetterà di rigiocare il match oppure scegliere un altro pokemon.
