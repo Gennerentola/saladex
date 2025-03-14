@@ -48,7 +48,7 @@ app-battle {
 
   .enemyPkmnPosition {
     position: absolute;
-    bottom: 48%;
+    bottom: 40%;
 
     @media screen and (min-width: 992px) {
       bottom: 55%;
@@ -116,6 +116,10 @@ app-battle {
     bottom: 0;
     right: 0;
   }
+
+  // .enemyPkmnInfo {
+  //   margin-top: 12%;
+  // }
 
   .ownPkmnInfo,
   .enemyPkmnInfo {
